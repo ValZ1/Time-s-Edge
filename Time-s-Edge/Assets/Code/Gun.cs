@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public GameObject prefab;
-    public Transform arm;
+    public GameObject Prefab;
+    public Transform ArmCenter;
 
-    private GameObject instance;
+    private GameObject _instance;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
         //Стрельба
         if (Input.GetMouseButtonDown(0))
         {
-            instance = Instantiate(prefab, transform.position, arm.rotation);
+            _instance = Instantiate(Prefab, transform.position, ArmCenter.rotation);
         }
     }
 }

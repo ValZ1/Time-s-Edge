@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speedBullet = 1.0f;
-    public int damageBullet = 20;
+    public float SpeedBullet = 10.0f;
+    public int DamageBullet = 20;
 
     void Start()
     {
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.position += transform.right * (speedBullet * Time.deltaTime);
+        transform.position += transform.right * (SpeedBullet * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
         //}
         if (other.TryGetComponent(out EnemyKamikaze enemy))
         {
-            enemy.TakeDamage(damageBullet);
+            enemy.TakeDamage(DamageBullet);
             Destroy(gameObject);
         }
     }
