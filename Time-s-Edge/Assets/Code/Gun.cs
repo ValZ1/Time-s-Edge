@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public GameObject Prefab;
+    public GameObject PrefabBullet;
     public Transform ArmCenter;
 
-    private GameObject _instance;
+    private float _cooldownTime = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +18,11 @@ public class Gun : MonoBehaviour
     void Update()
     {
         //Стрельба
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && _cooldownTime >=0.5f)
         {
-            _instance = Instantiate(Prefab, transform.position, ArmCenter.rotation);
+            _cooldownTime = 0;
+            Instantiate(PrefabBullet, transform.position, ArmCenter.rotation);
         }
+        _cooldownTime += Time.deltaTime;
     }
 }

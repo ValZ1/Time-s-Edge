@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, 10);
+        Destroy(gameObject, 5);
     }
 
     void Update()
@@ -26,6 +26,15 @@ public class Bullet : MonoBehaviour
         if (other.TryGetComponent(out EnemyKamikaze enemy))
         {
             enemy.TakeDamage(DamageBullet);
+            Destroy(gameObject);
+        }
+        else if (other.TryGetComponent(out EnemyShooter enemyShooter))
+        {
+            enemyShooter.TakeDamage(DamageBullet);
+            Destroy(gameObject);
+        }
+        else if (other.tag == "Wall")
+        {
             Destroy(gameObject);
         }
     }

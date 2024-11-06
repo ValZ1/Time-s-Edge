@@ -27,6 +27,6 @@ public class Player : MonoBehaviour
     //Функцию надо доработать, когда будет добавлена переменная времени (жизни)
     public void TakeDamage(int damage)
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

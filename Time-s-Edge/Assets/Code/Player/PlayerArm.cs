@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArmPlayer : MonoBehaviour
+public class PlayerArm : MonoBehaviour
 {
     public float MaxTurnSpeed = 180;
     public float SmoothTime = 0.1f;
