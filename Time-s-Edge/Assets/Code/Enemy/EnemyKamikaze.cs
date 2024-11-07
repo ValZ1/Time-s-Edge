@@ -8,12 +8,8 @@ public class EnemyKamikaze : MonoBehaviour
     public Player player;
     public float SpeedEnemy = 0.08f;
     public float RotationSpeed = 2.0f;
-<<<<<<< Updated upstream
-    public int DamageKamikaze = 50;
-=======
     public int DamageKamikaze = 20;
     public int Vampiric = -10;
->>>>>>> Stashed changes
     //public float DistanceChase = 10.0f;
 
     private Transform _player;
@@ -29,7 +25,7 @@ public class EnemyKamikaze : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Временно убрал, пока не требуется, вычисление дистанции до игрока
+        //Г‚Г°ГҐГ¬ГҐГ­Г­Г® ГіГЎГ°Г Г«, ГЇГ®ГЄГ  Г­ГҐ ГІГ°ГҐГЎГіГҐГІГ±Гї, ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГҐ Г¤ГЁГ±ГІГ Г­Г¶ГЁГЁ Г¤Г® ГЁГЈГ°Г®ГЄГ 
         //var distanceToPlayer = Vector2.Distance(_player.position, transform.position);
         //if (distanceToPlayer < DistanceChase)
         //{
