@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyKamikaze : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class EnemyKamikaze : MonoBehaviour
     public float SpeedEnemy = 0.08f;
     public float RotationSpeed = 2.0f;
     public int DamageKamikaze = 20;
-    public int Vampiric = -10;
+    public int vampiric = -10; //здоровье восполняемое за убийство с минусом
     //public float DistanceChase = 10.0f;
 
     private Transform _player;
@@ -25,15 +24,15 @@ public class EnemyKamikaze : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Âðåìåííî óáðàë, ïîêà íå òðåáóåòñÿ, âû÷èñëåíèå äèñòàíöèè äî èãðîêà
+        //Временно убрал, пока не требуется, вычисление дистанции до игрока
         //var distanceToPlayer = Vector2.Distance(_player.position, transform.position);
         //if (distanceToPlayer < DistanceChase)
         //{
-            _rb.MovePosition(Vector2.MoveTowards(_rb.position, _player.position, SpeedEnemy));
-            Vector3 direction = _player.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
+        _rb.MovePosition(Vector2.MoveTowards(_rb.position, _player.position, SpeedEnemy));
+        Vector3 direction = _player.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
         //}
     }
     public void TakeDamage(int damage)
@@ -41,9 +40,9 @@ public class EnemyKamikaze : MonoBehaviour
         _curEnemyHp -= damage;
         if (_curEnemyHp <= 0)
         {
+            player.TakeDamage(vampiric);
             Die();
-            player.TakeDamage(Vampiric);
-        }    
+        }
     }
     private void Die()
     {
