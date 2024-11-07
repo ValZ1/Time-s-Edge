@@ -3,19 +3,22 @@ using UnityEngine.Animations;
 
 public class Player : MonoBehaviour
 {
+    
     public float SpeedPlayer = 0.1f;
-    public int hp = 300;
-
+    public static int hp = 60; //
+    public static int _regeneration = -2; // Г°ГҐГЈГҐГ­ГҐГ°Г Г¶ГЁГї (Г±ГІГ ГІГЁГЄ Гў ГЎГіГ¤ГіГ№ГҐГ¬ ГіГЎГ°Г ГІГј)
+    
     private float _timer = 0f;
     private Rigidbody2D _rb;
     private Vector2 _moveVector;
     void Start()
     {
+        
         _rb = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
-        //Передвижение игрока
+        //ГЏГҐГ°ГҐГ¤ГўГЁГ¦ГҐГ­ГЁГҐ ГЁГЈГ°Г®ГЄГ 
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
         _moveVector = new Vector2(horiz, vert);
@@ -24,32 +27,26 @@ public class Player : MonoBehaviour
             _moveVector.Normalize();
         }
         _rb.MovePosition(_rb.position + _moveVector * SpeedPlayer);
-
-        //Механика времени-хп
-        _timer += Time.deltaTime; // Увеличиваем таймер на время, прошедшее с последнего кадра
+        //ГЊГҐГµГ Г­ГЁГЄГ  ГўГ°ГҐГ¬ГҐГ­ГЁ-ГµГЇ
+        _timer += Time.deltaTime; // Г“ГўГҐГ«ГЁГ·ГЁГўГ ГҐГ¬ ГІГ Г©Г¬ГҐГ° Г­Г  ГўГ°ГҐГ¬Гї, ГЇГ°Г®ГёГҐГ¤ГёГҐГҐ Г± ГЇГ®Г±Г«ГҐГ¤Г­ГҐГЈГ® ГЄГ Г¤Г°Г 
 
         if (_timer >= 1f)
         {
-            _timer = 0f; // Сбрасываем таймер
-            hp--;
+            _timer = 0f; // Г‘ГЎГ°Г Г±Г»ГўГ ГҐГ¬ ГІГ Г©Г¬ГҐГ°
+            hp += _regeneration;
         }
 
         if(hp <= 0)
         { 
-            Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
+            Destroy(gameObject); //ГЌГҐ Г§Г ГЎГ»ГІГј Г¤Г®ГЎГ ГўГЁГІГј Г±ГЄГ°ГЁГ­ GAME OVER!!!
         }
-
-
     }
 
-    public void PlayerHp(int damage = 0)
+    //Г”ГіГ­ГЄГ¶ГЁГѕ Г­Г Г¤Г® Г¤Г®Г°Г ГЎГ®ГІГ ГІГј, ГЄГ®ГЈГ¤Г  ГЎГіГ¤ГҐГІ Г¤Г®ГЎГ ГўГ«ГҐГ­Г  ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї ГўГ°ГҐГ¬ГҐГ­ГЁ (Г¦ГЁГ§Г­ГЁ)
+    public void TakeDamage(int damage)
     {
         hp -= damage;
     }
-
-    //Функцию надо доработать, когда будет добавлена переменная времени (жизни)
-    public void TakeDamage(int damage)
-    {
-        PlayerHp(damage);
-    }
+    //TODO
+    //Г±Г¤ГҐГ«Г ГІГј ГґГіГ­ГЄГ¶ГЁГѕ Г¤Г«Гї Г°ГҐГЈГҐГ­ГҐГ°Г Г¶ГЁГЁ
 }

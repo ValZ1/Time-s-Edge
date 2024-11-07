@@ -167,4 +167,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpeedBullet: 10
-  DamageBullet: 20
+  DamageBullet: 1

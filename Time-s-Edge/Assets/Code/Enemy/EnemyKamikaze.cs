@@ -5,9 +5,11 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyKamikaze : MonoBehaviour
 {
+    public Player player;
     public float SpeedEnemy = 0.08f;
     public float RotationSpeed = 2.0f;
     public int DamageKamikaze = 20;
+    public int Vampiric = -10;
     //public float DistanceChase = 10.0f;
 
     private Transform _player;
@@ -16,14 +18,14 @@ public class EnemyKamikaze : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _curEnemyHp = 100;
+        _curEnemyHp = 3;
         _rb = GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     // Update is called once per frame
     void Update()
     {
-        //Временно убрал, пока не требуется, вычисление дистанции до игрока
+        //Г‚Г°ГҐГ¬ГҐГ­Г­Г® ГіГЎГ°Г Г«, ГЇГ®ГЄГ  Г­ГҐ ГІГ°ГҐГЎГіГҐГІГ±Гї, ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГҐ Г¤ГЁГ±ГІГ Г­Г¶ГЁГЁ Г¤Г® ГЁГЈГ°Г®ГЄГ 
         //var distanceToPlayer = Vector2.Distance(_player.position, transform.position);
         //if (distanceToPlayer < DistanceChase)
         //{
@@ -38,7 +40,10 @@ public class EnemyKamikaze : MonoBehaviour
     {
         _curEnemyHp -= damage;
         if (_curEnemyHp <= 0)
+        {
             Die();
+            player.TakeDamage(Vampiric);
+        }    
     }
     private void Die()
     {

@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da25e90257f191f49acd1495ba3e74fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 95416466547492842, guid: a06d9ddf5452771478ef8f35f2319cdf, type: 3}
   SpeedEnemy: 0.12
   RotationSpeed: 2
   DamageKamikaze: 20
