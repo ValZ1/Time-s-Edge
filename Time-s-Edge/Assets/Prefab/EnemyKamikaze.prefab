@@ -148,7 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7abb9e234b177468787e6c21898461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   Player: {fileID: 0}
+=======
+  player: {fileID: 95416466547492842, guid: a06d9ddf5452771478ef8f35f2319cdf, type: 3}
+>>>>>>> Stashed changes
   SpeedEnemy: 0.06
   RotationSpeed: 2
   DamageKamikaze: 50

@@ -5,9 +5,15 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyKamikaze : MonoBehaviour
 {
+    public Player player;
     public float SpeedEnemy = 0.08f;
     public float RotationSpeed = 2.0f;
+<<<<<<< Updated upstream
     public int DamageKamikaze = 50;
+=======
+    public int DamageKamikaze = 20;
+    public int Vampiric = -10;
+>>>>>>> Stashed changes
     //public float DistanceChase = 10.0f;
 
     private Transform _player;
@@ -16,7 +22,7 @@ public class EnemyKamikaze : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _curEnemyHp = 100;
+        _curEnemyHp = 3;
         _rb = GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -38,7 +44,10 @@ public class EnemyKamikaze : MonoBehaviour
     {
         _curEnemyHp -= damage;
         if (_curEnemyHp <= 0)
+        {
             Die();
+            player.TakeDamage(Vampiric);
+        }    
     }
     private void Die()
     {
