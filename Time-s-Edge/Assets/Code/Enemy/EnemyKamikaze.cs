@@ -7,7 +7,7 @@ public class EnemyKamikaze : MonoBehaviour
 {
     public float SpeedEnemy = 0.08f;
     public float RotationSpeed = 2.0f;
-    public int DamageKamikaze = 50;
+    public int DamageKamikaze = 20;
     //public float DistanceChase = 10.0f;
 
     private Transform _player;

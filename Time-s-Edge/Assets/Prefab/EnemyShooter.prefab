@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpeedEnemy: 0.12
   RotationSpeed: 2
-  DamageKamikaze: 50
+  DamageKamikaze: 20
   DistanceShoot: 4
   PrefabBullet: {fileID: 3623083824314509764, guid: 60de52b8ba7aaad4f8ee9c826ebee782, type: 3}
   ArmCenter: {fileID: 4932411465221910215}
