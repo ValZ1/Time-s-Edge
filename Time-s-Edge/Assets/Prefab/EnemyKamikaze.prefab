@@ -148,11 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7abb9e234b177468787e6c21898461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
   SpeedEnemy: 0.06
   RotationSpeed: 2
-  DamageKamikaze: 50
-  DistanceChase: 10
+  DamageKamikaze: 20
 --- !u!50 &6142300245090669113
 Rigidbody2D:
   serializedVersion: 5

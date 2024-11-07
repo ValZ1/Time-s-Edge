@@ -4,7 +4,7 @@ public class EnemyShooter : MonoBehaviour
 {
     public float SpeedEnemy = 0.08f;
     public float RotationSpeed = 2.0f;
-    public int DamageKamikaze = 50;
+    public int DamageKamikaze = 20;
     public float DistanceShoot = 4.0f;
 
     private Transform _player;

@@ -4,7 +4,9 @@ using UnityEngine.Animations;
 public class Player : MonoBehaviour
 {
     public float SpeedPlayer = 0.1f;
+    public int hp = 300;
 
+    private float _timer = 0f;
     private Rigidbody2D _rb;
     private Vector2 _moveVector;
     void Start()
@@ -22,11 +24,32 @@ public class Player : MonoBehaviour
             _moveVector.Normalize();
         }
         _rb.MovePosition(_rb.position + _moveVector * SpeedPlayer);
+
+        //Механика времени-хп
+        _timer += Time.deltaTime; // Увеличиваем таймер на время, прошедшее с последнего кадра
+
+        if (_timer >= 1f)
+        {
+            _timer = 0f; // Сбрасываем таймер
+            hp--;
+        }
+
+        if(hp <= 0)
+        { 
+            Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
+        }
+
+
+    }
+
+    public void PlayerHp(int damage = 0)
+    {
+        hp -= damage;
     }
 
     //Функцию надо доработать, когда будет добавлена переменная времени (жизни)
     public void TakeDamage(int damage)
     {
-        //Destroy(gameObject);
+        PlayerHp(damage);
     }
 }
