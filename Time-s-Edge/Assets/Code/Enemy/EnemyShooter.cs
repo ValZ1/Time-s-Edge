@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
 {
-    public Player player;
     public float SpeedEnemy = 0.08f;
     public float RotationSpeed = 2.0f;
     public int DamageKamikaze = 20;
     public float DistanceShoot = 4.0f;
-    public int Vampiric = -20;
 
     private Transform _player;
     private Rigidbody2D _rb;
@@ -22,7 +20,7 @@ public class EnemyShooter : MonoBehaviour
     private float _cooldownChaseTime;
     void Start()
     {
-        _curEnemyHp = 5;
+        _curEnemyHp = 100;
         _cooldownTime = MaxCooldownTime;
         _cooldownChaseTime = MaxCooldownChaseTime;
         _rb = GetComponent<Rigidbody2D>();
@@ -55,10 +53,7 @@ public class EnemyShooter : MonoBehaviour
     {
         _curEnemyHp -= damage;
         if (_curEnemyHp <= 0)
-        {
             Die();
-            player.TakeDamage(Vampiric);
-        }
     }
     private void Die()
     {

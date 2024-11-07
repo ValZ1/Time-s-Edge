@@ -18,13 +18,7 @@ public class Gun : MonoBehaviour
     void Update()
     {
         //Стрельба
-        if (Input.GetMouseButton(0) && _cooldownTime >=0.5f)
-        {
-            _cooldownTime = 0;
-            Instantiate(PrefabBullet, transform.position, ArmCenter.rotation);
-        }
-
-        if (Input.GetKey(KeyCode.Space) && _cooldownTime >= 0.5f)
+        if (Input.GetMouseButtonDown(0) && _cooldownTime >=0.5f)
         {
             _cooldownTime = 0;
             Instantiate(PrefabBullet, transform.position, ArmCenter.rotation);
