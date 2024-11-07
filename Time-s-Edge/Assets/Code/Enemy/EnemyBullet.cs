@@ -9,7 +9,6 @@ public class EnemyBullet : MonoBehaviour
     {
         Destroy(gameObject, 5);
     }
-
     void Update()
     {
         transform.position += transform.right * (SpeedBullet * Time.deltaTime);

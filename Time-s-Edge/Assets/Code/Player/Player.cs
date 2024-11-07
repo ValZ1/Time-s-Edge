@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     public float SpeedPlayer = 0.1f;
-    public int hp = 300;
-
+    public static int hp = 60;
+    public static int _regeneration = -2; //СѓР±СЂР°С‚СЊ СЃС‚Р°С‚РёРє?
     private float _timer = 0f;
     private Rigidbody2D _rb;
     private Vector2 _moveVector;
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        //Передвижение игрока
+        //РџРµСЂРµРґРІРёР¶РµРЅРёРµ РёРіСЂРѕРєР°
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
         _moveVector = new Vector2(horiz, vert);
@@ -25,31 +26,26 @@ public class Player : MonoBehaviour
         }
         _rb.MovePosition(_rb.position + _moveVector * SpeedPlayer);
 
-        //Механика времени-хп
-        _timer += Time.deltaTime; // Увеличиваем таймер на время, прошедшее с последнего кадра
+        //РњРµС…Р°РЅРёРєР° РІСЂРµРјРµРЅРё-С…Рї
+        _timer += Time.deltaTime; // РЈРІРµР»РёС‡РёРІР°РµРј С‚Р°Р№РјРµСЂ РЅР° РІСЂРµРјСЏ, РїСЂРѕС€РµРґС€РµРµ СЃ РїРѕСЃР»РµРґРЅРµРіРѕ РєР°РґСЂР°
 
         if (_timer >= 1f)
         {
-            _timer = 0f; // Сбрасываем таймер
-            hp--;
+            _timer = 0f; // РЎР±СЂР°СЃС‹РІР°РµРј С‚Р°Р№РјРµСЂ
+            hp += _regeneration;
         }
 
-        if(hp <= 0)
-        { 
-            Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
+        if (hp <= 0)
+        {
+            Destroy(gameObject); //РќРµ Р·Р°Р±С‹С‚СЊ РґРѕР±Р°РІРёС‚СЊ СЃРєСЂРёРЅ GAME OVER!!!
+            SceneManager.LoadScene("SampleScene");
         }
 
 
     }
 
-    public void PlayerHp(int damage = 0)
-    {
-        hp -= damage;
-    }
-
-    //Функцию надо доработать, когда будет добавлена переменная времени (жизни)
     public void TakeDamage(int damage)
     {
-        PlayerHp(damage);
+        hp -= damage;
     }
 }
