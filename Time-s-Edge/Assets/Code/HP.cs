@@ -11,7 +11,7 @@ public class HP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Hp = Player.hp;
+        Hp = Player.CurHp;
         Text.text = Hp.ToString();
     }
 }
