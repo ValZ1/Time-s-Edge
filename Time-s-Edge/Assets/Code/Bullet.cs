@@ -33,6 +33,11 @@ public class Bullet : MonoBehaviour
             enemyShooter.TakeDamage(DamageBullet);
             Destroy(gameObject);
         }
+        else if (other.TryGetComponent(out EnemyTank enemyTank))
+        {
+            enemyTank.TakeDamage(DamageBullet);
+            Destroy(gameObject);
+        }
         else if (other.tag == "Wall")
         {
             Destroy(gameObject);
