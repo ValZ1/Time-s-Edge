@@ -39,6 +39,7 @@ public class EnemyTank : MonoBehaviour
             CurrentDelay -= Time.deltaTime;
         //}
     }
+    //TODO функция отбрасывания игрока от объекта на n метров
     public void TakeDamage(int damage)
     {
         _curEnemyHp -= damage;
@@ -60,6 +61,7 @@ public class EnemyTank : MonoBehaviour
             player.TakeDamage(DamageTouch);
             TakeDamage(1);
             CurrentDelay = TouchDelay;
+            //TODO вызов функции отбрасывания игрока
         }
     }
 }
