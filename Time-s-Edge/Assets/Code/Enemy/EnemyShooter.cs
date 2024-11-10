@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
 {
-    public Player player;
+    public Player Player;
     public float SpeedEnemy = 0.08f;
     public float RotationSpeed = 2.0f;
     public int DamageKamikaze = 20;
     public float DistanceShoot = 4.0f;
-    public int Vampiric = -20;
+    public int RegenHp = -20;
 
-    private Transform _player;
+    private Transform _playerCenter;
     private Rigidbody2D _rb;
     private int _curEnemyHp;
 
@@ -26,21 +26,24 @@ public class EnemyShooter : MonoBehaviour
         _cooldownTime = MaxCooldownTime;
         _cooldownChaseTime = MaxCooldownChaseTime;
         _rb = GetComponent<Rigidbody2D>();
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        var distanceToPlayer = Vector2.Distance(_player.position, transform.position);
-        if (distanceToPlayer > DistanceShoot && _cooldownChaseTime >= MaxCooldownChaseTime)
+        // ќтключаем движени€, чтобы при столкновении со своими сородичами не летал по всей карте,
+        // а также позвол€ет ему рассталкивать других стрелков, чтоб достичь игрока
+        _rb.linearVelocity = Vector2.zero;
+        var distanceToPlayer = Vector2.Distance(_playerCenter.position, transform.position);
+        if (distanceToPlayer > DistanceShoot)
         {
-            _rb.MovePosition(Vector2.MoveTowards(_rb.position, _player.position, SpeedEnemy));
+            _rb.MovePosition(Vector2.MoveTowards(_rb.position, _playerCenter.position, SpeedEnemy));
         }
         else if (distanceToPlayer <= DistanceShoot && _cooldownTime >= MaxCooldownTime)
         {
             //¬ будущем требует доработки, попытаюсь реализовать стрельбу в сторону движени€ игрока
-            Vector3 direction = _player.position - transform.position;
+            Vector3 direction = _playerCenter.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
             ArmCenter.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
@@ -57,7 +60,7 @@ public class EnemyShooter : MonoBehaviour
         if (_curEnemyHp <= 0)
         {
             Die();
-            player.TakeDamage(Vampiric);
+            Player.TakeDamage(RegenHp);
         }
     }
     private void Die()

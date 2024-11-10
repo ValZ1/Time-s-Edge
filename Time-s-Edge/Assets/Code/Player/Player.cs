@@ -4,14 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
-    public static int hp = 60;
-    public static int _regeneration = -2; //убрать статик?
+    public static int CurHp;
+    public static Vector2 _moveVector;
+
+    private int _timeBurner = -1;
     private float _timer = 0f;
     private Rigidbody2D _rb;
-    private Vector2 _moveVector;
     void Start()
     {
+        CurHp = StartHp;
         _rb = GetComponent<Rigidbody2D>();
     }
     void Update()
@@ -32,10 +35,10 @@ public class Player : MonoBehaviour
         if (_timer >= 1f)
         {
             _timer = 0f; // Сбрасываем таймер
-            hp += _regeneration;
+            CurHp += _timeBurner;
         }
 
-        if (hp <= 0)
+        if (CurHp <= 0)
         {
             Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
             SceneManager.LoadScene("SampleScene");
@@ -46,6 +49,6 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        hp -= damage;
+        CurHp -= damage;
     }
 }
