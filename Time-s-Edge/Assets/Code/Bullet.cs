@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float SpeedBullet = 10.0f;
-    public int DamageBullet = 1;
+    public Player player;
+    
 
     void Start()
     {
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.position += transform.right * (SpeedBullet * Time.deltaTime);
+        transform.position += transform.right * (player.SpeedBullet * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,17 +25,22 @@ public class Bullet : MonoBehaviour
         //}
         if (other.TryGetComponent(out EnemyKamikaze enemy))
         {
-            enemy.TakeDamage(DamageBullet);
+            enemy.TakeDamage(player.get_Damage());
             Destroy(gameObject);
         }
         else if (other.TryGetComponent(out EnemyShooter enemyShooter))
         {
-            enemyShooter.TakeDamage(DamageBullet);
+            enemyShooter.TakeDamage(player.get_Damage());
             Destroy(gameObject);
         }
         else if (other.TryGetComponent(out EnemyTank enemyTank))
         {
-            enemyTank.TakeDamage(DamageBullet);
+            enemyTank.TakeDamage(player.get_Damage());
+            Destroy(gameObject);
+        }
+        else if (other.TryGetComponent(out target_dummy td))
+        {
+            td.TakeDamage(player.get_Damage());
             Destroy(gameObject);
         }
         else if (other.tag == "Wall")

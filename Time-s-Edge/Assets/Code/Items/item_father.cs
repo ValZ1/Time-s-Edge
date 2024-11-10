@@ -26,30 +26,42 @@ abstract class Item : MonoBehaviour
     public double _PriceModificator = 1; //один и тот же предмет на 1 и на 10 этаже должны стоить по разному
     public Rigidbody2D _rb ;
 
-    // Start is called before the first frame update
+    //damage
+    protected int _damage_Up;
+    //
+    protected int _speed_Up;
+    //
+    protected int _atack_Speed_Up;
+    //
+    protected int _momental_Heal;
+    //
+    protected int _regeneration_Up;
+   
     
+
+
     void Start()
     {
-        //_price = 3;
         _rb = GetComponent<Rigidbody2D>();
     }
-    // Update is called once per frame
     
-    void Update()
-    {
-        //Временно убрал, пока не требуется, вычисление дистанции до игрока
-        //var distanceToPlayer = Vector2.Distance(_player.position, transform.position);
-        //if (distanceToPlayer < DistanceChase)
-        //{
-        
-        //}
-    }
+    /// <summary>
+    /// абстрактный метод, определяется для каждого объекта по своему
+    /// </summary>
     public abstract void Affect();
     
+    /// <summary>
+    /// Уничтожает предмет
+    /// </summary>
     private void Die()
     {
         Destroy(gameObject);
     }
+
+    /// <summary>
+    /// Покупка
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -57,9 +69,9 @@ abstract class Item : MonoBehaviour
             Player player = collision.gameObject.GetComponent<Player>();
             if (player.get_CurHp() > _price) { 
                 player.TakeDamage(_price);
+                Die();
                 Affect();
             }
-            Die();
         }
     }
 }

@@ -4,12 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
     //TRAD - to read and delete - буду оставлять с этой аббревиатурой комментарии на некоторых незначительных изменениях. оставлять их не стоит
     //но стоит держать в уме
-    private int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
+    private static int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
                                //TRAD чтобы просмотреть здоровье игрока - get_CurHp(), изменить его - TakeDamage.
                                //TRAD думаю поменять тип на double, чтобы иметь возможность отнимать не 1хп/сек, а 1.5 и проч. приколы.
     public static Vector2 _moveVector;
@@ -18,7 +17,11 @@ public class Player : MonoBehaviour
     private float _timer = 0f;
     private Rigidbody2D _rb;
 
-  
+
+    //dmg
+    public float SpeedBullet = 10.0f;
+    public static int DamageBullet = 1;
+
     void Start()
     {
         CurHp = StartHp;
@@ -87,6 +90,14 @@ public class Player : MonoBehaviour
     public int get_CurHp()
     {
         return CurHp;
+    }
+    public int get_Damage()
+    {
+        return DamageBullet;
+    }
+    public void damage_Up(int damage)
+    {
+        DamageBullet += damage;
     }
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
