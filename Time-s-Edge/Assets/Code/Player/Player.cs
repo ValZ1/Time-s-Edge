@@ -22,8 +22,26 @@ public class Player : MonoBehaviour
     public float SpeedBullet = 10.0f;
     public static int DamageBullet = 1;
 
+
+
+
+
+    //ну а че вы хотели
+    //4 blink
+    public static float _blink_Range = 11.5f;
+    public static int _you_Have_Blink = 0;
+    public static float _cooldown_Blink = 5.0f;
+    public static float _cur_Cooldown_Blink = 5.0f;
+    public float _blink_duration = 0.3f;
+    public int flag = 0;
+
+    public float display1;
+    public float display2;
+    public float display3;
+
     void Start()
     {
+        
         CurHp = StartHp;
         _rb = GetComponent<Rigidbody2D>();
     }
@@ -40,10 +58,42 @@ public class Player : MonoBehaviour
         }
         _rb.MovePosition(_rb.position + _moveVector * SpeedPlayer);
 
+        if (_you_Have_Blink == 1) 
+        { 
+            if (Input.GetKeyDown(KeyCode.Z) && _cur_Cooldown_Blink >= _cooldown_Blink)
+            {
+                _cur_Cooldown_Blink = 0;
+                flag = 1;
+            }
+            if (flag == 1)
+            {
+                _blink_duration -= Time.deltaTime;
+                _rb.MovePosition(_rb.position + _moveVector * _blink_Range / 26); //26 нужно на что то поменять
+            }
+            if (_blink_duration <= 0)
+            {
+                flag = 0;
+                _blink_duration = 0.3f;
+            }    
+
+
+
+            _cur_Cooldown_Blink += Time.deltaTime;
+
+
+        }
+
+
+
+
+
+
         Burner_by_time();
-
-
+        display1 = get_cooldown_blink();
+        display2 = _cur_Cooldown_Blink;
+        display3 = _blink_Range;
     }
+
 
     /// <summary>
     /// Хваленая механика постоянной потери здоровья
@@ -87,18 +137,8 @@ public class Player : MonoBehaviour
     /// Возвращает текущее здоровье игрока
     /// </summary>
     /// <returns></returns>
-    public int get_CurHp()
-    {
-        return CurHp;
-    }
-    public int get_Damage()
-    {
-        return DamageBullet;
-    }
-    public void damage_Up(int damage)
-    {
-        DamageBullet += damage;
-    }
+    
+   
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
     /// </summary>
@@ -108,4 +148,22 @@ public class Player : MonoBehaviour
         CurHp -= damage;
         ChackDie(); 
     }
+
+
+    //Getters
+    public int get_CurHp(){return CurHp;}
+    public int get_Damage(){return DamageBullet;}
+    public float get_cooldown_blink() { return _cooldown_Blink; }
+
+
+
+    //Setters
+    public void damage_Up(int damage){ DamageBullet += damage;}
+    public void blink_Up() { _you_Have_Blink = 1;}
+    public void blink_range_Up(float range) {_blink_Range += range;}
+    public void blink_cooldown_reduction(float reduction) { _cooldown_Blink -= _cooldown_Blink * reduction; }
+
+
+
+
 }
