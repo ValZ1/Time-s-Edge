@@ -420,7 +420,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1dd80cf946dcc499f6550343c3e1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartHp: 60
   SpeedPlayer: 0.1
+  SpeedBullet: 10
+  _blink_Range: 50
+  _you_Have_Blink: 0
 --- !u!50 &8865970178853217732
 Rigidbody2D:
   serializedVersion: 5
