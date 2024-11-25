@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour
             enemyTank.TakeDamage(player.get_Damage());
             Destroy(gameObject);
         }
-        else if (other.TryGetComponent(out target_dummy td))
+        else if (other.TryGetComponent(out TargetDummy td))
         {
             td.TakeDamage(player.get_Damage());
             Destroy(gameObject);

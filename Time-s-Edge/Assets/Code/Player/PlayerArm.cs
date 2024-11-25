@@ -7,19 +7,14 @@ public class PlayerArm : MonoBehaviour
 
     private float _angle;
     private float _currentVelocity;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-    // Update is called once per frame
+    private float _targetAngle;
     void Update()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePosition - transform.position;
-        float targetAngle = Vector2.SignedAngle(Vector2.right, direction);
-        _angle = Mathf.SmoothDampAngle(_angle, targetAngle, ref _currentVelocity, SmoothTime, MaxTurnSpeed);
+        _targetAngle = Vector2.SignedAngle(Vector2.right, direction);
+        _angle = Mathf.SmoothDampAngle(_angle, _targetAngle, ref _currentVelocity, SmoothTime, MaxTurnSpeed);
         transform.eulerAngles = new Vector3(0, 0, _angle);
     }
-    public float get_angle() { return _angle; }
+    public float get_targetAngle() { return _targetAngle; }
 }

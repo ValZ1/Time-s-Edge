@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-class sword_test : Item
+class sword_test : ItemFather
 {
 
     void Start()
