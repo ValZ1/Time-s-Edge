@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
@@ -40,12 +41,16 @@ public class Player : MonoBehaviour
     public float display3;
 
     //Анимация
+    public PlayerArm PlayerArm;
+
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
     void Start()
     {
         CurHp = StartHp;
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
@@ -59,6 +64,7 @@ public class Player : MonoBehaviour
             _moveVector.Normalize();
         }
         _rb.MovePosition(_rb.position + _moveVector * SpeedPlayer);
+
 
         if (_you_Have_Blink == 1) 
         { 
@@ -76,20 +82,9 @@ public class Player : MonoBehaviour
             {
                 flag = 0;
                 _blink_duration = 0.3f;
-            }    
-
-
-
+            }
             _cur_Cooldown_Blink += Time.deltaTime;
-
-
         }
-
-
-
-
-
-
         Burner_by_time();
         display1 = get_cooldown_blink();
         display2 = _cur_Cooldown_Blink;
@@ -97,9 +92,20 @@ public class Player : MonoBehaviour
 
         //Анимация движения, будет проигрываться, когда игрок двигается
         animator.SetBool("isMoving", _moveVector.magnitude > 0);
+        CheckFlipX();
     }
+    void CheckFlipX()
+    {
+        // Если угол больше 90 градусов, значит игрок смотрит влево
+        bool shouldFlip = PlayerArm.get_angle() > 90f || PlayerArm.get_angle() < -90f;
 
-
+        // Если текущее состояние flipX не совпадает с направлением, переключаем его
+        if (spriteRenderer.flipX != shouldFlip)
+        {
+            // Переключаем значение flipX напрямую
+            spriteRenderer.flipX = shouldFlip;
+        }
+    }
     /// <summary>
     /// Хваленая механика постоянной потери здоровья
     /// </summary>
