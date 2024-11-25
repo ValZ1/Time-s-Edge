@@ -39,11 +39,13 @@ public class Player : MonoBehaviour
     public float display2;
     public float display3;
 
+    //Анимация
+    private Animator animator;
     void Start()
     {
-        
         CurHp = StartHp;
         _rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
     void Update()
     {
@@ -92,6 +94,9 @@ public class Player : MonoBehaviour
         display1 = get_cooldown_blink();
         display2 = _cur_Cooldown_Blink;
         display3 = _blink_Range;
+
+        //Анимация движения, будет проигрываться, когда игрок двигается
+        animator.SetBool("isMoving", _moveVector.magnitude > 0);
     }
 
 

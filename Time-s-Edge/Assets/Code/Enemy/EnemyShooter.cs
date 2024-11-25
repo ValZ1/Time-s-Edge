@@ -36,7 +36,7 @@ public class EnemyShooter : MonoBehaviour
         // а также позволяет ему рассталкивать других стрелков, чтоб достичь игрока
         _rb.linearVelocity = Vector2.zero;
         var distanceToPlayer = Vector2.Distance(_playerCenter.position, transform.position);
-        if (distanceToPlayer > DistanceShoot)
+        if (distanceToPlayer > DistanceShoot && _cooldownChaseTime >= MaxCooldownChaseTime)
         {
             _rb.MovePosition(Vector2.MoveTowards(_rb.position, _playerCenter.position, SpeedEnemy));
         }
