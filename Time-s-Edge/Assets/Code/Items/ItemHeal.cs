@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-class healka : Item
+class ItemHeal : ItemFather
 {
 
     void Start()

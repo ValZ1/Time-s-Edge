@@ -16,7 +16,7 @@ public enum Item_type //классификация необходима для подбора иконок + упрощает л
     unique, //что то прям экстраординарное, требует координального изменения механики
     other //TODO  заполнить еще чем нить
 }
-abstract class Item : MonoBehaviour
+abstract class ItemFather : MonoBehaviour
 {
     public Player player;//у кого хп отнимать?
     public string _name; //имя предмета
