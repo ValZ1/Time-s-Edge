@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
     //Анимация
     public PlayerArm PlayerArm;
+    public SpriteRenderer ArmSpriteRenderer;
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour
         if (spriteRenderer.flipX != shouldFlip)
         {
             spriteRenderer.flipX = shouldFlip;
+            ArmSpriteRenderer.flipY = shouldFlip;
         }
     }
     /// <summary>

@@ -148,11 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7abb9e234b177468787e6c21898461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3997873500116512248, guid: a06d9ddf5452771478ef8f35f2319cdf, type: 3}
+  player: {fileID: 4641672882510483923, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
   SpeedEnemy: 0.06
   RotationSpeed: 2
   DamageKamikaze: 20
-  Vampiric: -10
+  RegenHp: -10
 --- !u!50 &6142300245090669113
 Rigidbody2D:
   serializedVersion: 5
