@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    
     public GameObject PrefabBullet;
     public Transform ArmCenter;
 
@@ -13,7 +14,6 @@ public class Gun : MonoBehaviour
     {
         
     }
-
     // Update is called once per frame
     void Update()
     {

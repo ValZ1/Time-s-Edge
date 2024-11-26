@@ -12,7 +12,6 @@ public class PlayerArm : MonoBehaviour
     {
         
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -22,4 +21,5 @@ public class PlayerArm : MonoBehaviour
         _angle = Mathf.SmoothDampAngle(_angle, targetAngle, ref _currentVelocity, SmoothTime, MaxTurnSpeed);
         transform.eulerAngles = new Vector3(0, 0, _angle);
     }
+    public float get_angle() { return _angle; }
 }

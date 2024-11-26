@@ -16,7 +16,7 @@ public class HP : MonoBehaviour
     {
         Damage = Bullet.DamageBullet;
         spdamage = Bullet.SpeedBullet;
-        Hp = Player.CurHp;
+        Hp = Player.get_CurHp();
         Text.text = "HP " + Hp.ToString() + "\n" +"Damage "+ Damage.ToString()+"\n"+"Atakspped "+spdamage.ToString();
     }
 }
