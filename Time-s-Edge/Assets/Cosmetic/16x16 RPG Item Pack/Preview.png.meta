@@ -103,7 +103,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -141,7 +141,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -684,7 +684,30 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Preview_0: 7722654891345554819
+      Preview_1: 8292874840162596553
+      Preview_10: 7507921268304698273
+      Preview_11: 4193764690287266326
+      Preview_12: 6144674910014450536
+      Preview_13: 1220641498105727995
+      Preview_14: -2467459404894558976
+      Preview_15: -3824705155624662134
+      Preview_16: -2318339766320773316
+      Preview_17: 7612587534116185308
+      Preview_18: -1829764418144584381
+      Preview_19: 2333375259195700429
+      Preview_2: 7321317447761252210
+      Preview_20: 8512685052735223638
+      Preview_21: 2607923162574567527
+      Preview_22: 8341348164046795183
+      Preview_3: -3454176882497730870
+      Preview_4: 7547553122556159190
+      Preview_5: 6500138059199536059
+      Preview_6: -6296551635988431917
+      Preview_7: 1262515205825287680
+      Preview_8: -6539185103443330686
+      Preview_9: 2608455587819763363
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

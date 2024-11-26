@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-class bleank_item : Item
+class ItemBlink : ItemFather
 {
     void Start()
     {

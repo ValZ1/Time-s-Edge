@@ -4,14 +4,19 @@ using UnityEngine;
 public class HP : MonoBehaviour
 {
     public int Hp;
+    public int Damage;
+    public float spdamage;
 
     public Player Player;
+    //public Bullet Bullet;
     public TextMeshProUGUI Text;
 
     // Update is called once per frame
     void Update()
     {
+        Damage = Player.get_Damage();
+        //spdamage = Bullet.SpeedBullet;
         Hp = Player.get_CurHp();
-        Text.text = Hp.ToString();
+        Text.text = "HP " + Hp.ToString() + "\n" +"Damage "+ Damage.ToString();
     }
 }

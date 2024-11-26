@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
@@ -17,14 +18,9 @@ public class Player : MonoBehaviour
     private float _timer = 0f;
     private Rigidbody2D _rb;
 
-
     //dmg
     public float SpeedBullet = 10.0f;
     public static int DamageBullet = 1;
-
-
-
-
 
     //ну а че вы хотели
     //4 blink
@@ -35,15 +31,18 @@ public class Player : MonoBehaviour
     public float _blink_duration = 0.3f;
     public int flag = 0;
 
-    public float display1;
-    public float display2;
-    public float display3;
+    //Анимация
+    public PlayerArm PlayerArm;
+    public SpriteRenderer ArmSpriteRenderer;
 
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
     void Start()
     {
-        
         CurHp = StartHp;
         _rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
@@ -57,6 +56,7 @@ public class Player : MonoBehaviour
             _moveVector.Normalize();
         }
         _rb.MovePosition(_rb.position + _moveVector * SpeedPlayer);
+
 
         if (_you_Have_Blink == 1) 
         { 
@@ -74,27 +74,27 @@ public class Player : MonoBehaviour
             {
                 flag = 0;
                 _blink_duration = 0.3f;
-            }    
-
-
-
+            }
             _cur_Cooldown_Blink += Time.deltaTime;
-
-
         }
-
-
-
-
-
-
         Burner_by_time();
-        display1 = get_cooldown_blink();
-        display2 = _cur_Cooldown_Blink;
-        display3 = _blink_Range;
+
+        //Анимация движения, будет проигрываться, когда игрок двигается
+        animator.SetBool("isMoving", _moveVector.magnitude > 0);
+        CheckFlipX();
     }
-
-
+    /// <summary>
+    /// Функция поворота игрока в сторону мыши
+    /// </summary>
+    void CheckFlipX()
+    {
+        bool shouldFlip = PlayerArm.get_targetAngle() > 90f || PlayerArm.get_targetAngle() < -90f;
+        if (spriteRenderer.flipX != shouldFlip)
+        {
+            spriteRenderer.flipX = shouldFlip;
+            ArmSpriteRenderer.flipY = shouldFlip;
+        }
+    }
     /// <summary>
     /// Хваленая механика постоянной потери здоровья
     /// </summary>
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
             _timer = 0f; // Сбрасываем таймер
             CurHp += _timeBurner;//TRAD думаю поменять на TakeDamage(-_timeBurner)
             //TRAD решил перенести сюда, чтобы не проверять каждый deltaTime, добавлю во все места в коде, где этого еще нет
-            ChackDie();
+            CheckDie();
         }
     }
 
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Проверяет хп героя. если оно <=0 то убивает его
     /// </summary>
-    void ChackDie()
+    void CheckDie()
     {
         if (CurHp <= 0)
         {
@@ -132,13 +132,6 @@ public class Player : MonoBehaviour
         Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
         SceneManager.LoadScene("SampleScene");
     }
-
-    /// <summary>
-    /// Возвращает текущее здоровье игрока
-    /// </summary>
-    /// <returns></returns>
-    
-   
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
     /// </summary>
@@ -146,24 +139,15 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         CurHp -= damage;
-        ChackDie(); 
+        CheckDie(); 
     }
-
-
     //Getters
     public int get_CurHp(){return CurHp;}
     public int get_Damage(){return DamageBullet;}
     public float get_cooldown_blink() { return _cooldown_Blink; }
-
-
-
     //Setters
     public void damage_Up(int damage){ DamageBullet += damage;}
     public void blink_Up() { _you_Have_Blink = 1;}
     public void blink_range_Up(float range) {_blink_Range += range;}
     public void blink_cooldown_reduction(float reduction) { _cooldown_Blink -= _cooldown_Blink * reduction; }
-
-
-
-
 }

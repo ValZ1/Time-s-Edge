@@ -181,7 +181,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -219,7 +219,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -1334,7 +1334,56 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Sheet_0: -8644889942409211090
+      Sheet_1: 7180195895192826059
+      Sheet_10: 3719195470339505224
+      Sheet_11: 1731647788988222269
+      Sheet_12: -1025951174003558675
+      Sheet_13: 3193039239326454919
+      Sheet_14: -3058229962641959686
+      Sheet_15: 51363136116004566
+      Sheet_16: 2329116044165841025
+      Sheet_17: -7583837556227218809
+      Sheet_18: -1333159919349879821
+      Sheet_19: 1650403901147311243
+      Sheet_2: -6622732464455020030
+      Sheet_20: -2810665635889312721
+      Sheet_21: 8956002981994491068
+      Sheet_22: 8996468492193918113
+      Sheet_23: -7906154960547828393
+      Sheet_24: 4422321812067476563
+      Sheet_25: -2741883451166865251
+      Sheet_26: 5255869592269291120
+      Sheet_27: -913285195914314525
+      Sheet_28: 7422246078151422202
+      Sheet_29: -5718818064983718454
+      Sheet_3: 8222604357750818144
+      Sheet_30: -587189176020860410
+      Sheet_31: -1977535611198494484
+      Sheet_32: 8722237637483000164
+      Sheet_33: -7942937549746915781
+      Sheet_34: 3429400784054130603
+      Sheet_35: 369539365487259051
+      Sheet_36: -8323773704877422078
+      Sheet_37: -1957113853711535984
+      Sheet_38: 3033103204789807587
+      Sheet_39: -3413034189946114341
+      Sheet_4: -4004527290698857321
+      Sheet_40: -5391477449805069460
+      Sheet_41: 7387516690597139808
+      Sheet_42: 1949526560958714085
+      Sheet_43: 1537835575722628517
+      Sheet_44: 3162567876823930883
+      Sheet_45: 4591095995056961379
+      Sheet_46: 1930365335857138742
+      Sheet_47: 2036035021129622761
+      Sheet_48: 6884699132681556930
+      Sheet_5: -6033885931137250393
+      Sheet_6: 5923240033370958429
+      Sheet_7: 2451002373052964623
+      Sheet_8: 8108322230764480391
+      Sheet_9: -7156045342858959276
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
