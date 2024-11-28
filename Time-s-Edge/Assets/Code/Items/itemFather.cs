@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Item_type //классификация необходима для подбора иконок + упрощает логистические приколы
@@ -26,6 +28,9 @@ abstract class ItemFather : MonoBehaviour
     public double _PriceModificator = 1; //один и тот же предмет на 1 и на 10 этаже должны стоить по разному
     public Rigidbody2D _rb ;
 
+    public Collider2D collider1;
+    public Collider2D collider2;
+
     //damage
     protected int _damage_Up;
     //
@@ -37,9 +42,11 @@ abstract class ItemFather : MonoBehaviour
     //
     protected int _regeneration_Up;
    
-    
+    protected string discriprion;
+    protected string parameters;
+    protected string lore;
 
-
+    public TextMeshProUGUI Text;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -62,11 +69,11 @@ abstract class ItemFather : MonoBehaviour
     /// Покупка
     /// </summary>
     /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collider2D collider1)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collider1.gameObject.CompareTag("Player"))
         {
-            Player player = collision.gameObject.GetComponent<Player>();
+            Player player = collider1.gameObject.GetComponent<Player>();
             if (player.get_CurHp() > _price) { 
                 player.TakeDamage(_price);
                 Die();
@@ -74,5 +81,16 @@ abstract class ItemFather : MonoBehaviour
             }
         }
     }
+   
+
+    public void OnTriggerStay2D(Collider2D collider2)
+    {
+        Text.text = discriprion + "\n" + parameters + "\n" + lore;
+    }
+    public void OnTriggerExit2D(Collider2D collider2)
+    {
+        Text.text = "";
+    }
+
 }
 
