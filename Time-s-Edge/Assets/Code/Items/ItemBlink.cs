@@ -11,7 +11,6 @@ class ItemBlink : ItemFather
         _name = "Blink Dugger";
         _price = (int)(40 * _difficulty_Price_Modificator * _PriceModificator);
         _itemType = Item_type.unique;
-        _rb = GetComponent<Rigidbody2D>();
     }
     public override void Affect()
     {

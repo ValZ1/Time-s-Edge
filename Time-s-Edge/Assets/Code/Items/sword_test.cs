@@ -12,7 +12,6 @@ class sword_test : ItemFather
         _name = "sword_test";
         _price = (int)(60 * _difficulty_Price_Modificator * _PriceModificator);
         _itemType = Item_type.damage;
-        _rb = GetComponent<Rigidbody2D>();
     }
     public override void Affect()
     {

@@ -8,11 +8,10 @@ class ItemHeal : ItemFather
     {
         discriprion = "Лечит";
         parameters = "Цена - 0 \nЛечение - 120";
-        lore = "Вкуснейшая 'Курочка острая', но как она тут оказалась?";
+        lore = "Вкуснейшая 'Курочка острая', но как она тут оказалась?"; //отсылка на студ. столовую, курочку не трогать!!!
         _name = "healka";
         _price = 0;
         _itemType = Item_type.damage;
-        _rb = GetComponent<Rigidbody2D>();
     }
     public override void Affect()
     {
