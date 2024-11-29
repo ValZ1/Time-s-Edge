@@ -8,7 +8,7 @@ class ItemBlink : ItemFather
         discriprion = "Позволяет совершать резкий рывок в сторону движения на клавишу Z. Перезарядка и дальность могут изменяться при наличии нескольких экземпляров.";
         parameters = "Цена - 40 \nбазовая перезарядка - 3 сек.\n уменьшение перезарядки - 10%\n дальность - 115\n увеличение дальности - 10\n ";
         lore = "Древний кинжал скованный из магических камней, кузнец, что сотворил его дал ему очень странное имя, которое никто уже и не вспомнит.";
-    _name = "Blink Dugger";
+        _name = "Blink Dugger";
         _price = (int)(40 * _difficulty_Price_Modificator * _PriceModificator);
         _itemType = Item_type.unique;
         _rb = GetComponent<Rigidbody2D>();
@@ -20,6 +20,6 @@ class ItemBlink : ItemFather
         player.blink_cooldown_reduction(0.1f);
     }
 
-    // Update is called once per frame
+    
  
 }

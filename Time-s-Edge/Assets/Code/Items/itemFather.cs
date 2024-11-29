@@ -28,8 +28,9 @@ abstract class ItemFather : MonoBehaviour
     public double _PriceModificator = 1; //один и тот же предмет на 1 и на 10 этаже должны стоить по разному
     public Rigidbody2D _rb ;
 
-    public Collider2D collider1;
-    public Collider2D collider2;
+    public Collider2D collider_for_take;
+    public Collider2D collider_for_info;
+
 
     //damage
     protected int _damage_Up;
@@ -53,27 +54,24 @@ abstract class ItemFather : MonoBehaviour
     }
     
     /// <summary>
-    /// абстрактный метод, определяется для каждого объекта по своему
+    /// абстрактный метод, определяется для каждого объекта по своему. При применении вызывает желаемое воздействие на игрока
     /// </summary>
     public abstract void Affect();
     
     /// <summary>
     /// Уничтожает предмет
     /// </summary>
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
+    private void Die(){ Destroy(gameObject); }
 
     /// <summary>
     /// Покупка
     /// </summary>
     /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collider2D collider1)
+    private void OnCollisionEnter2D(Collision2D collider_for_take)
     {
-        if (collider1.gameObject.CompareTag("Player"))
+        if (collider_for_take.gameObject.CompareTag("Player"))
         {
-            Player player = collider1.gameObject.GetComponent<Player>();
+            Player player = collider_for_take.gameObject.GetComponent<Player>();
             if (player.get_CurHp() > _price) { 
                 player.TakeDamage(_price);
                 Die();
@@ -82,14 +80,24 @@ abstract class ItemFather : MonoBehaviour
         }
     }
    
-
-    public void OnTriggerStay2D(Collider2D collider2)
-    {
-        Text.text = discriprion + "\n" + parameters + "\n" + lore;
+    /// <summary>
+    /// Открывает текст, если игрок стоит в радиусе
+    /// </summary>
+    /// <param name="collider_for_info"></param>
+    public void OnTriggerStay2D(Collider2D collider_for_info)
+    { 
+        if (collider_for_info.gameObject.CompareTag("Player")) 
+            Text.text = discriprion + "\n" + parameters + "\n" + lore; 
     }
-    public void OnTriggerExit2D(Collider2D collider2)
+
+    /// <summary>
+    /// закрывает текст если игрок вышел из радиуса
+    /// </summary>
+    /// <param name="collider_for_info"></param>
+    public void OnTriggerExit2D(Collider2D collider_for_info) 
     {
-        Text.text = "";
+        if (collider_for_info.gameObject.CompareTag("Player"))
+            Text.text = "";           
     }
 
 }
