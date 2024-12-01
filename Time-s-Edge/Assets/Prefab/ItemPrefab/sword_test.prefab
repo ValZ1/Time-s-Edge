@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -8310197227577025375, guid: e4c10378fdcbebb4d9c9d08cf481a8ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -240,9 +240,6 @@ MonoBehaviour:
   _itemType: 0
   _difficulty_Price_Modificator: 1
   _PriceModificator: 1
-  _rb: {fileID: 0}
-  collider_for_take: {fileID: 1910977787400424835}
-  collider_for_info: {fileID: -7630367820603290388}
   Text: {fileID: 761544566648035762}
 --- !u!1 &1028044569686308455
 GameObject:

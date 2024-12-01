@@ -31,6 +31,7 @@ abstract class ItemFather : MonoBehaviour
     protected string parameters = "Непонятно что делает";
     protected string lore = "Никто не знает откуда";
 
+    private bool _isPlayerInTrigger = false;
     //просто перечисление всего того, что может быть в описании предмета 
     /*
     //damage
@@ -56,28 +57,19 @@ abstract class ItemFather : MonoBehaviour
     /// абстрактный метод, определяется для каждого объекта по своему. При применении вызывает желаемое воздействие на игрока
     /// </summary>
     public abstract void Affect();
-    
+    void Update()
+    {
+        if (_isPlayerInTrigger && player.get_CurHp() > _price && Input.GetKeyDown(KeyCode.E))
+        {
+            player.Buy(_price);
+            Die();
+            Affect();
+        }
+    }
     /// <summary>
     /// Уничтожает предмет
     /// </summary>
     private void Die(){ Destroy(gameObject); }
-
-    /// <summary>
-    /// Покупка
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Player player = collision.gameObject.GetComponent<Player>();
-            if (player.get_CurHp() > _price) { 
-                player.Buy(_price);
-                Die();
-                Affect();
-            }
-        }
-    }
 
     /// <summary>
     /// Открывает текст, если игрок стоит в радиусе
@@ -85,8 +77,11 @@ abstract class ItemFather : MonoBehaviour
     /// <param name="collider"></param>
     public void OnTriggerStay2D(Collider2D collider)
     { 
-        if (collider.gameObject.CompareTag("Player")) 
-            Text.text = discriprion + "\n" + parameters + "\n" + lore; 
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            Text.text = discriprion + "\n" + parameters + "\n" + lore;
+            _isPlayerInTrigger = true;
+        }
     }
 
     /// <summary>
@@ -96,7 +91,10 @@ abstract class ItemFather : MonoBehaviour
     public void OnTriggerExit2D(Collider2D collider) 
     {
         if (collider.gameObject.CompareTag("Player"))
-            Text.text = "";           
+        {
+            Text.text = "";
+            _isPlayerInTrigger = false;
+        }      
     }
 
 }
