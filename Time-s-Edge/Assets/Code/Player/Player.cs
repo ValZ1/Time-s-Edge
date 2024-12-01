@@ -132,8 +132,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void Die()
     {
-        Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        //Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
+
     }
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
