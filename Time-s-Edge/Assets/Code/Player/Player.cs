@@ -21,7 +21,10 @@ public class Player : MonoBehaviour
     //dmg
     public float SpeedBullet = 10.0f;
     public static int DamageBullet = 1;
+    //защита
+    public static double Protection = 0.0;
 
+    public static double HealBoost = 0.0;
     //ну а че вы хотели
     //4 blink
     public static float _blink_Range = 11.5f;
@@ -129,8 +132,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void Die()
     {
-        Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        //Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
+
     }
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
@@ -138,15 +142,26 @@ public class Player : MonoBehaviour
     /// <param name="damage"></param>
     public void TakeDamage(int damage)
     {
-        CurHp -= damage;
+        if (damage > 0)
+            CurHp -= (int)(damage * (1 - Protection));
+        else
+            CurHp -= (int)(damage * (1 + HealBoost));
         CheckDie(); 
     }
+    /// <summary>
+    /// используется при покупке предметов
+    /// </summary>
+    /// <param name="price"></param>
+    public void Buy(int price){CurHp -= price;} 
     //Getters
     public int get_CurHp(){return CurHp;}
     public int get_Damage(){return DamageBullet;}
     public float get_cooldown_blink() { return _cooldown_Blink; }
     //Setters
     public void damage_Up(int damage){ DamageBullet += damage;}
+    public void protection_Up(double protection) { Protection += protection ; } // * (1 - Protection)
+    public void Heal_Up(double healBoost) { HealBoost += healBoost; }
+
     public void blink_Up() { _you_Have_Blink = 1;}
     public void blink_range_Up(float range) {_blink_Range += range;}
     public void blink_cooldown_reduction(float reduction) { _cooldown_Blink -= _cooldown_Blink * reduction; }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Item_type //классификация необходима для подбора иконок + упрощает логистические приколы
@@ -24,8 +26,13 @@ abstract class ItemFather : MonoBehaviour
     public Item_type _itemType; //тип предмета
     public double _difficulty_Price_Modificator = 1; //обсудить - нужно ли это вообще или нет/снять 1чку
     public double _PriceModificator = 1; //один и тот же предмет на 1 и на 10 этаже должны стоить по разному
-    public Rigidbody2D _rb ;
 
+    protected string discriprion = "Непонятно что";
+    protected string parameters = "Непонятно что делает";
+    protected string lore = "Никто не знает откуда";
+
+    //просто перечисление всего того, что может быть в описании предмета 
+    /*
     //damage
     protected int _damage_Up;
     //
@@ -36,27 +43,24 @@ abstract class ItemFather : MonoBehaviour
     protected int _momental_Heal;
     //
     protected int _regeneration_Up;
-   
-    
+   */
 
 
+
+    public TextMeshProUGUI Text;
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
     }
     
     /// <summary>
-    /// абстрактный метод, определяется для каждого объекта по своему
+    /// абстрактный метод, определяется для каждого объекта по своему. При применении вызывает желаемое воздействие на игрока
     /// </summary>
     public abstract void Affect();
     
     /// <summary>
     /// Уничтожает предмет
     /// </summary>
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
+    private void Die(){ Destroy(gameObject); }
 
     /// <summary>
     /// Покупка
@@ -68,11 +72,32 @@ abstract class ItemFather : MonoBehaviour
         {
             Player player = collision.gameObject.GetComponent<Player>();
             if (player.get_CurHp() > _price) { 
-                player.TakeDamage(_price);
+                player.Buy(_price);
                 Die();
                 Affect();
             }
         }
     }
+
+    /// <summary>
+    /// Открывает текст, если игрок стоит в радиусе
+    /// </summary>
+    /// <param name="collider"></param>
+    public void OnTriggerStay2D(Collider2D collider)
+    { 
+        if (collider.gameObject.CompareTag("Player")) 
+            Text.text = discriprion + "\n" + parameters + "\n" + lore; 
+    }
+
+    /// <summary>
+    /// закрывает текст если игрок вышел из радиуса
+    /// </summary>
+    /// <param name="collider"></param>
+    public void OnTriggerExit2D(Collider2D collider) 
+    {
+        if (collider.gameObject.CompareTag("Player"))
+            Text.text = "";           
+    }
+
 }
 

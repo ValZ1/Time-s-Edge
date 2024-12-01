@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kreed_1920x750_0: 1654706846291665699
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
