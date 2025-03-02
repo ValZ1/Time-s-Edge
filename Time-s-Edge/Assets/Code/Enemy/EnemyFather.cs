@@ -74,7 +74,7 @@ public class EnemyFather : MonoBehaviour
 
         if (_curEnemyHp <= 0)
         {
-            player.TakeDamage(RegenHp);
+            player.Heal(-RegenHp);
             Die();
         }
     }

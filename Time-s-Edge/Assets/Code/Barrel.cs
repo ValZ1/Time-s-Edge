@@ -3,7 +3,7 @@ using UnityEngine;
 public class Barrel : MonoBehaviour
 {
     public GameObject HealtPotion;
-    public int Hp = 5;
+    public int Hp = 2;
 
 
 

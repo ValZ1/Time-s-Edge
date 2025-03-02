@@ -40,7 +40,7 @@ public class EnemyKamikaze : EnemyFather
         if (collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.TakeDamage(DamageKamikaze);
+            player.TakeDamage(DamageKamikaze, transform.position, -0.3f);
             Die();
         }
     }

@@ -44,8 +44,7 @@ public class EnemyTank : EnemyFather
         if (collision.gameObject.CompareTag("Player") && CurrentDelay <= 0f)
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.TakeDamage(DamageTouch);
-            player.PushPlayer(transform.position, -0.3f);
+            player.TakeDamage(DamageTouch, transform.position, -0.3f);
             CurrentDelay = TouchDelay;
             
             //TODO вызов функции отбрасывания игрока

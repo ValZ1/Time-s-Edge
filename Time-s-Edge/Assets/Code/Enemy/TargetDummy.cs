@@ -22,6 +22,6 @@ public class TargetDummy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _lastTakenDamage = damage;
-        player.TakeDamage(-10);
+        player.Heal(-10);
     }
 }

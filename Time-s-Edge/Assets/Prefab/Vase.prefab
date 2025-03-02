@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealtPotion: {fileID: 6954968702640625, guid: d9c623b5d5840734981068a410e12e33, type: 3}
+  Hp: 1
 --- !u!70 &-8381377717446270937
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
