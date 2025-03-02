@@ -143,11 +143,38 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (damage > 0)
+        { 
             CurHp -= (int)(damage * (1 - Protection));
+            
+
+
+        }
         else
             CurHp -= (int)(damage * (1 + HealBoost));
         CheckDie(); 
     }
+
+    public void PushPlayer(Vector2 pushFrom, float pushPower)
+    {
+        // Если нет прикреплённого Rigidbody2D, то выйдем из функции
+        if (_rb == null || pushPower == 0)
+        {
+            return;
+        }
+        // Определяем в каком направлении должен отлететь объект
+        // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
+        var pushDirection = (pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+
+
+        _rb.AddForce(pushDirection * pushPower);
+    }
+
+
+
+
+
+
+
     /// <summary>
     /// используется при покупке предметов
     /// </summary>

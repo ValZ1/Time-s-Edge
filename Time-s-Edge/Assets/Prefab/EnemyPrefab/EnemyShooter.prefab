@@ -185,7 +185,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000000
+  m_Mass: 0.0001
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -212,16 +212,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da25e90257f191f49acd1495ba3e74fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 4641672882510483923, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
+  player: {fileID: 4641672882510483923, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
   SpeedEnemy: 0.12
   RotationSpeed: 2
+  PushResistance: 0
   DamageKamikaze: 20
-  DistanceShoot: 4
   RegenHp: -20
+  DamageTouch: 0
+  TouchDelay: 0
+  CurrentDelay: 0
   PrefabBullet: {fileID: 3623083824314509764, guid: 60de52b8ba7aaad4f8ee9c826ebee782, type: 3}
   ArmCenter: {fileID: 4932411465221910215}
-  MaxCooldownTime: 1
-  MaxCooldownChaseTime: 2
 --- !u!1 &8273157827241519212
 GameObject:
   m_ObjectHideFlags: 0
