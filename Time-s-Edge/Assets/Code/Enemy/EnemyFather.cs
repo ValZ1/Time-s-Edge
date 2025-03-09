@@ -79,8 +79,6 @@ public class EnemyFather : MonoBehaviour
         }
     }
 
-
-
     public void Die()
     {
         Destroy(gameObject);

@@ -183,15 +183,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6b68f613f1ee0439e570c2ee7c5624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4641672882510483923, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
+  player: {fileID: 0}
   _name: 
   _price: 0
   _itemType: 5
   _difficulty_Price_Modificator: 1
   _PriceModificator: 1
-  _rb: {fileID: 0}
-  collider_for_take: {fileID: 0}
-  collider_for_info: {fileID: 0}
   Text: {fileID: 4607268047447897087}
 --- !u!61 &3075469102079865068
 BoxCollider2D:
@@ -299,7 +296,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &6821841851302355152
 MonoBehaviour:
@@ -375,7 +372,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.11778789}
   m_AnchorMax: {x: 0.5, y: 0.11778789}
-  m_AnchoredPosition: {x: 0, y: -0.47162855}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 4, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7539892535328256071
@@ -440,7 +437,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

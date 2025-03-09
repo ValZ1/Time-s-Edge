@@ -13,10 +13,10 @@ public class Player : MonoBehaviour
     public float SpeedPlayer = 0.1f;
     //TRAD - to read and delete - буду оставлять с этой аббревиатурой комментарии на некоторых незначительных изменениях. оставлять их не стоит
     //но стоит держать в уме
-    private static int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
+    private int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
                                //TRAD чтобы просмотреть здоровье игрока - get_CurHp(), изменить его - TakeDamage.
                                //TRAD думаю поменять тип на double, чтобы иметь возможность отнимать не 1хп/сек, а 1.5 и проч. приколы.
-    public static Vector2 _moveVector;
+    private Vector2 _moveVector;
 
     private int _timeBurner = -1;
     private float _timer = 0f;
@@ -24,17 +24,17 @@ public class Player : MonoBehaviour
 
     //dmg
     public float SpeedBullet = 10.0f;
-    public static int DamageBullet = 1;
+    private int DamageBullet = 1;
     //защита
-    public static double Protection = 0.0;
+    [SerializeField] private double Protection = 0.0;
 
-    public static double HealBoost = 0.0;
+    [SerializeField] private double HealBoost = 0.0;
     //ну а че вы хотели
     //4 blink
-    public static float _blink_Range = 11.5f;
-    public static int _you_Have_Blink = 0;
-    public static float _cooldown_Blink = 5.0f;
-    public static float _cur_Cooldown_Blink = 5.0f;
+    [SerializeField] private float _blink_Range = 11.5f;
+    [SerializeField] private int _you_Have_Blink = 0;
+    [SerializeField] private float _cooldown_Blink = 5.0f;
+    [SerializeField] private float _cur_Cooldown_Blink = 5.0f;
     public float _blink_duration = 0.3f;
     public int flag = 0;
 
@@ -208,20 +208,15 @@ public class Player : MonoBehaviour
     }
 
 
-
-
-
-
-
     /// <summary>
     /// используется при покупке предметов
     /// </summary>
     /// <param name="price"></param>
     public void Buy(int price){CurHp -= price;} 
     //Getters
-    public int get_CurHp(){return CurHp;}
-    public int get_Damage(){return DamageBullet;}
-    public float get_cooldown_blink() { return _cooldown_Blink; }
+    public int get_CurHp() => CurHp;
+    public int get_Damage() => DamageBullet;
+    public float get_cooldown_blink() => _cooldown_Blink;
     //Setters
     public void damage_Up(int damage){ DamageBullet += damage;}
     public void protection_Up(double protection) { Protection += protection ; } // * (1 - Protection)

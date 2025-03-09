@@ -18,7 +18,4 @@ class ItemBlink : ItemFather
         player.blink_range_Up(1.0f);
         player.blink_cooldown_reduction(0.1f);
     }
-
-    
- 
 }
