@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class EnemyShooter : EnemyFather
 {
-    
-    void Start()
-    {    
-    SpeedEnemy = 0.04f;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        SpeedEnemy = 0.04f;
         CurSpeedEnemy = SpeedEnemy;
         RotationSpeed = 2.0f;
-    DamageKamikaze = 20;
-    DistanceShoot = 4.0f;
-    RegenHp = -20;
-    MaxCooldownTime = 1.0f;
-    MaxCooldownChaseTime = 2.0f;
-    _curEnemyHp = 5;
-    _cooldownTime = MaxCooldownTime;
-    _cooldownChaseTime = MaxCooldownChaseTime;
+        DamageKamikaze = 20;
+        DistanceShoot = 4.0f;
+        RegenHp = -20;
+        MaxCooldownTime = 1.0f;
+        MaxCooldownChaseTime = 2.0f;
+        _curEnemyHp = 5;
+        _cooldownTime = MaxCooldownTime;
+        _cooldownChaseTime = MaxCooldownChaseTime;
         _rb = GetComponent<Rigidbody2D>();
         _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
     }

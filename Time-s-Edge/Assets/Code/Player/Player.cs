@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log("HP NOW = " + CurHp);
         //TRAD ИМХО, стоит перенести в отдельную функцию и постоянно вызывать ее в Update
         //Передвижение игрока
         float horiz = Input.GetAxis("Horizontal");
@@ -98,6 +99,8 @@ public class Player : MonoBehaviour
             isInvul = false;
             invultime = 0f;
         }
+
+
         //Анимация движения, будет проигрываться, когда игрок двигается
         animator.SetBool("isMoving", _moveVector.magnitude > 0);
         CheckFlipX();
@@ -172,10 +175,6 @@ public class Player : MonoBehaviour
 
                 CurHp -= (int)(damage * (1 - Protection));
                 isInvul = true;
-
-
-
-
             }
         }
     }
@@ -189,7 +188,10 @@ public class Player : MonoBehaviour
 
     public void Heal(int damage)
     {
-        CurHp += (int)(damage * (1 + HealBoost));
+        Debug.Log("damage" + damage);
+        Debug.Log(CurHp);
+        CurHp += damage; //(int)(damage * (1 + HealBoost));
+        Debug.Log(CurHp);
     }
 
     public void PushPlayer(Vector2 pushFrom, float pushPower)

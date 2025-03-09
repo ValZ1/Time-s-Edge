@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyTank : EnemyFather
 {
-     void Start()
+    protected override void Start()
     {
+        base.Start();
+
         SpeedEnemy = 0.04f;
         CurSpeedEnemy = SpeedEnemy;
         RotationSpeed = 3.0f;
