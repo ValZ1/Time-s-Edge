@@ -176,7 +176,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000000
+  m_Mass: 0.0001
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -206,7 +206,11 @@ MonoBehaviour:
   player: {fileID: 4641672882510483923, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
   SpeedEnemy: 0.04
   RotationSpeed: 3
+  PushResistance: 0
+  DamageKamikaze: 0
+  RegenHp: 0
   DamageTouch: 20
   TouchDelay: 1
   CurrentDelay: 0
-  vampiric: -40
+  PrefabBullet: {fileID: 0}
+  ArmCenter: {fileID: 0}

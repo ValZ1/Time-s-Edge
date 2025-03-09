@@ -23,24 +23,10 @@ public class Bullet : MonoBehaviour
         //    enemy.TakeDamage(damageBullet);
         //    Destroy(gameObject);
         //}
-        if (other.TryGetComponent(out EnemyKamikaze enemy))
+        if (other.TryGetComponent(out EnemyFather enemy))
         {
             enemy.TakeDamage(player.get_Damage());
-            Destroy(gameObject);
-        }
-        else if (other.TryGetComponent(out EnemyShooter enemyShooter))
-        {
-            enemyShooter.TakeDamage(player.get_Damage());
-            Destroy(gameObject);
-        }
-        else if (other.TryGetComponent(out EnemyTank enemyTank))
-        {
-            enemyTank.TakeDamage(player.get_Damage());
-            Destroy(gameObject);
-        }
-        else if (other.TryGetComponent(out TargetDummy td))
-        {
-            td.TakeDamage(player.get_Damage());
+            enemy.PushAway(transform.position,-0.03f);
             Destroy(gameObject);
         }
         else if (other.tag == "Wall")

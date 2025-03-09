@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public AudioClip[] sound;
+    public AudioSource audioData;
+
+
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
     //TRAD - to read and delete - буду оставлять с этой аббревиатурой комментарии на некоторых незначительных изменениях. оставлять их не стоит
@@ -34,6 +38,8 @@ public class Player : MonoBehaviour
     public float _blink_duration = 0.3f;
     public int flag = 0;
 
+    public bool isInvul = false;
+    public float invultime = 0;
     //Анимация
     public PlayerArm PlayerArm;
     public SpriteRenderer ArmSpriteRenderer;
@@ -42,6 +48,8 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     void Start()
     {
+        audioData = GetComponent<AudioSource>();
+
         CurHp = StartHp;
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -82,6 +90,14 @@ public class Player : MonoBehaviour
         }
         Burner_by_time();
 
+        if (isInvul && invultime < 1f)
+        {
+            invultime += Time.deltaTime;
+        }
+        if (invultime >= 1f) { 
+            isInvul = false;
+            invultime = 0f;
+        }
         //Анимация движения, будет проигрываться, когда игрок двигается
         animator.SetBool("isMoving", _moveVector.magnitude > 0);
         CheckFlipX();
@@ -140,14 +156,63 @@ public class Player : MonoBehaviour
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
     /// </summary>
     /// <param name="damage"></param>
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector2 pushFrom, float pushPower)
     {
-        if (damage > 0)
-            CurHp -= (int)(damage * (1 - Protection));
-        else
-            CurHp -= (int)(damage * (1 + HealBoost));
-        CheckDie(); 
+
+
+        PushPlayer(pushFrom, pushPower);
+        if (!isInvul) { 
+            if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
+                Die();
+            else 
+            {
+                
+                audioData.clip = sound[Random.Range(0,4)];
+                audioData.Play();
+
+                CurHp -= (int)(damage * (1 - Protection));
+                isInvul = true;
+
+
+
+
+            }
+        }
     }
+
+    private void invulnerability(float invulTime)
+    {
+        //TODO анимация
+
+
+    }    
+
+    public void Heal(int damage)
+    {
+        CurHp += (int)(damage * (1 + HealBoost));
+    }
+
+    public void PushPlayer(Vector2 pushFrom, float pushPower)
+    {
+        // Если нет прикреплённого Rigidbody2D, то выйдем из функции
+        if (_rb == null || pushPower == 0)
+        {
+            return;
+        }
+        // Определяем в каком направлении должен отлететь объект
+        // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
+        var pushDirection = (pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+
+
+        _rb.AddForce(pushDirection * pushPower);
+    }
+
+
+
+
+
+
+
     /// <summary>
     /// используется при покупке предметов
     /// </summary>

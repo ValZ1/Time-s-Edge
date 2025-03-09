@@ -15,6 +15,6 @@ class ItemHeal : ItemFather
     }
     public override void Affect()
     {
-        player.TakeDamage(-120);
+        player.Heal(120);
     }
 }

@@ -151,8 +151,14 @@ MonoBehaviour:
   player: {fileID: 4641672882510483923, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
   SpeedEnemy: 0.06
   RotationSpeed: 2
+  PushResistance: 0
   DamageKamikaze: 20
   RegenHp: -10
+  DamageTouch: 0
+  TouchDelay: 0
+  CurrentDelay: 0
+  PrefabBullet: {fileID: 0}
+  ArmCenter: {fileID: 0}
 --- !u!50 &6142300245090669113
 Rigidbody2D:
   serializedVersion: 5
@@ -165,7 +171,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000000
+  m_Mass: 0.0001
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0

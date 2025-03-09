@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class healthpotion: MonoBehaviour
 {
-    public int heal = -50;
+    public int heal = 50;
     void Start()
     {
     }
@@ -13,7 +13,7 @@ public class healthpotion: MonoBehaviour
     {
         if (other.TryGetComponent(out Player player))
         {
-            player.TakeDamage(heal);
+            player.Heal(heal);
             Destroy(gameObject);
         }
     }
