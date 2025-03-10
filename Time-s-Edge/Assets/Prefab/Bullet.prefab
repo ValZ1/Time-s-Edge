@@ -166,5 +166,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbec39fd10826f45a377c8b3e9aac58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpeedBullet: 10
-  DamageBullet: 1
+  player: {fileID: 4641672882510483923, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}

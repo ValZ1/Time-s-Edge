@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float SpeedBullet = 10.0f;
-    public int DamageBullet = 1;
+    public Player player;
+    
 
     void Start()
     {
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.position += transform.right * (SpeedBullet * Time.deltaTime);
+        transform.position += transform.right * (player.SpeedBullet * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,14 +23,10 @@ public class Bullet : MonoBehaviour
         //    enemy.TakeDamage(damageBullet);
         //    Destroy(gameObject);
         //}
-        if (other.TryGetComponent(out EnemyKamikaze enemy))
+        if (other.TryGetComponent(out EnemyFather enemy))
         {
-            enemy.TakeDamage(DamageBullet);
-            Destroy(gameObject);
-        }
-        else if (other.TryGetComponent(out EnemyShooter enemyShooter))
-        {
-            enemyShooter.TakeDamage(DamageBullet);
+            enemy.TakeDamage(player.get_Damage());
+            enemy.PushAway(transform.position,-0.03f);
             Destroy(gameObject);
         }
         else if (other.tag == "Wall")

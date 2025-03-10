@@ -1,46 +1,43 @@
 using UnityEngine;
 
-public class EnemyShooter : MonoBehaviour
+public class EnemyShooter : EnemyFather
 {
-    public Player player;
-    public float SpeedEnemy = 0.08f;
-    public float RotationSpeed = 2.0f;
-    public int DamageKamikaze = 20;
-    public float DistanceShoot = 4.0f;
-    public int Vampiric = -20;
-
-    private Transform _player;
-    private Rigidbody2D _rb;
-    private int _curEnemyHp;
-
-    public GameObject PrefabBullet;
-    public Transform ArmCenter;
-    public float MaxCooldownTime = 1.0f;
-    public float MaxCooldownChaseTime = 2.0f;
-
-    private float _cooldownTime;
-    private float _cooldownChaseTime;
+    
     void Start()
-    {
-        _curEnemyHp = 5;
-        _cooldownTime = MaxCooldownTime;
-        _cooldownChaseTime = MaxCooldownChaseTime;
+    {    
+    SpeedEnemy = 0.04f;
+        CurSpeedEnemy = SpeedEnemy;
+        RotationSpeed = 2.0f;
+    DamageKamikaze = 20;
+    DistanceShoot = 4.0f;
+    RegenHp = -20;
+    MaxCooldownTime = 1.0f;
+    MaxCooldownChaseTime = 2.0f;
+    _curEnemyHp = 5;
+    _cooldownTime = MaxCooldownTime;
+    _cooldownChaseTime = MaxCooldownChaseTime;
         _rb = GetComponent<Rigidbody2D>();
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        var distanceToPlayer = Vector2.Distance(_player.position, transform.position);
+        CurSpeedEnemy += 0.01f * SpeedEnemy;
+        if (CurSpeedEnemy > SpeedEnemy) { CurSpeedEnemy = SpeedEnemy; }
+        // ќтключаем движени€, чтобы при столкновении со своими сородичами не летал по всей карте,
+        // а также позвол€ет ему рассталкивать других стрелков, чтоб достичь игрока
+        _rb.linearVelocity = Vector2.zero;
+        var distanceToPlayer = Vector2.Distance(_playerCenter.position, transform.position);
         if (distanceToPlayer > DistanceShoot && _cooldownChaseTime >= MaxCooldownChaseTime)
         {
-            _rb.MovePosition(Vector2.MoveTowards(_rb.position, _player.position, SpeedEnemy));
+            _rb.MovePosition(Vector2.MoveTowards(_rb.position, _playerCenter.position, CurSpeedEnemy));
         }
         else if (distanceToPlayer <= DistanceShoot && _cooldownTime >= MaxCooldownTime)
         {
             //¬ будущем требует доработки, попытаюсь реализовать стрельбу в сторону движени€ игрока
-            Vector3 direction = _player.position - transform.position;
+            Vector3 direction = _playerCenter.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
             ArmCenter.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
@@ -51,25 +48,13 @@ public class EnemyShooter : MonoBehaviour
         _cooldownTime += Time.deltaTime;
         _cooldownChaseTime += Time.deltaTime;
     }
-    public void TakeDamage(int damage)
-    {
-        _curEnemyHp -= damage;
-        if (_curEnemyHp <= 0)
-        {
-            Die();
-            player.TakeDamage(Vampiric);
-        }
-    }
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.TakeDamage(DamageKamikaze);
+            player.TakeDamage(DamageKamikaze, transform.position, -0.3f);
             Die();
         }
     }
