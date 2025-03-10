@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyKamikaze : EnemyFather
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         SpeedEnemy = 0.08f;
         CurSpeedEnemy = SpeedEnemy;
         RotationSpeed = 2.0f;

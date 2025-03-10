@@ -43,7 +43,10 @@ public class EnemyFather : MonoBehaviour
     // Update is called once per frame
 
 
-
+    protected virtual void Start()
+    {
+        player = FindFirstObjectByType<Player>();
+    }
     public void PushTest()
     {
         var l = new Vector2(3000, 3000);
@@ -74,12 +77,11 @@ public class EnemyFather : MonoBehaviour
 
         if (_curEnemyHp <= 0)
         {
+            Debug.Log("Dsdsdsds");
             player.Heal(-RegenHp);
             Die();
         }
     }
-
-
 
     public void Die()
     {

@@ -20,9 +20,9 @@ public enum Item_type //классификация необходима для подбора иконок + упрощает л
 }
 abstract class ItemFather : MonoBehaviour
 {
-    public Player player;//у кого хп отнимать?
+    [SerializeField] protected Player player;//у кого хп отнимать?
     public string _name; //имя предмета
-    public int _price;  //цена предмета
+    [SerializeField] protected int _price;  //цена предмета
     public Item_type _itemType; //тип предмета
     public double _difficulty_Price_Modificator = 1; //обсудить - нужно ли это вообще или нет/снять 1чку
     public double _PriceModificator = 1; //один и тот же предмет на 1 и на 10 этаже должны стоить по разному
@@ -59,6 +59,7 @@ abstract class ItemFather : MonoBehaviour
     public abstract void Affect();
     void Update()
     {
+        //Debug.Log(player.get_CurHp());
         if (_isPlayerInTrigger && player.get_CurHp() > _price && Input.GetKeyDown(KeyCode.E))
         {
             player.Buy(_price);
@@ -76,9 +77,10 @@ abstract class ItemFather : MonoBehaviour
     /// </summary>
     /// <param name="collider"></param>
     public void OnTriggerStay2D(Collider2D collider)
-    { 
-        if (collider.gameObject.CompareTag("Player"))
+    {
+        if (collider.TryGetComponent(out Player _player))
         {
+            player = _player;
             Text.text = discriprion + "\n" + parameters + "\n" + lore;
             _isPlayerInTrigger = true;
         }
