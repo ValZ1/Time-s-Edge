@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
                                //TRAD думаю поменять тип на double, чтобы иметь возможность отнимать не 1хп/сек, а 1.5 и проч. приколы.
     private Vector2 _moveVector;
 
-    private int _timeBurner = -1;
+    public int _timeBurner = -1; //паблик потому что лень методы делать)
     private float _timer = 0f;
     private Rigidbody2D _rb;
 
