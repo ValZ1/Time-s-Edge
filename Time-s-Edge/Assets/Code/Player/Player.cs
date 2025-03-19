@@ -25,10 +25,11 @@ public class Player : MonoBehaviour
     //dmg
     public float SpeedBullet = 10.0f;
     private int DamageBullet = 1;
+
     //защита
     [SerializeField] private double Protection = 0.0;
-
     [SerializeField] private double HealBoost = 0.0;
+
     //ну а че вы хотели
     //4 blink
     [SerializeField] private float _blink_Range = 11.5f;
@@ -40,12 +41,15 @@ public class Player : MonoBehaviour
 
     public bool isInvul = false;
     public float invultime = 0;
+
     //Анимация
     public PlayerArm PlayerArm;
     public SpriteRenderer ArmSpriteRenderer;
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
+    public bool isDie;
     void Start()
     {
         audioData = GetComponent<AudioSource>();
@@ -54,6 +58,7 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        isDie = false;
     }
     void Update()
     {
@@ -150,9 +155,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        //Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
-
+        isDie = true;
     }
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
