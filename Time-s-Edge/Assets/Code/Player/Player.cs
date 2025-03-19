@@ -57,7 +57,6 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log("HP NOW = " + CurHp);
         //TRAD ИМХО, стоит перенести в отдельную функцию и постоянно вызывать ее в Update
         //Передвижение игрока
         float horiz = Input.GetAxis("Horizontal");
@@ -188,10 +187,7 @@ public class Player : MonoBehaviour
 
     public void Heal(int damage)
     {
-        Debug.Log("damage" + damage);
-        Debug.Log(CurHp);
         CurHp += damage; //(int)(damage * (1 + HealBoost));
-        Debug.Log(CurHp);
     }
 
     public void PushPlayer(Vector2 pushFrom, float pushPower)
