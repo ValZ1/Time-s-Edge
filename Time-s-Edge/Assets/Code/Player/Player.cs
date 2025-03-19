@@ -5,48 +5,51 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public AudioClip[] sound;
+    public AudioSource audioData;
+
+
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
     //TRAD - to read and delete - буду оставлять с этой аббревиатурой комментарии на некоторых незначительных изменениях. оставлять их не стоит
     //но стоит держать в уме
-    private static int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
+    private int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
                                //TRAD чтобы просмотреть здоровье игрока - get_CurHp(), изменить его - TakeDamage.
                                //TRAD думаю поменять тип на double, чтобы иметь возможность отнимать не 1хп/сек, а 1.5 и проч. приколы.
-    public static Vector2 _moveVector;
+    private Vector2 _moveVector;
 
     private int _timeBurner = -1;
     private float _timer = 0f;
     private Rigidbody2D _rb;
 
-
     //dmg
     public float SpeedBullet = 10.0f;
-    public static int DamageBullet = 1;
+    private int DamageBullet = 1;
+    //защита
+    [SerializeField] private double Protection = 0.0;
 
-
-
-
-
+    [SerializeField] private double HealBoost = 0.0;
     //ну а че вы хотели
     //4 blink
-    public static float _blink_Range = 11.5f;
-    public static int _you_Have_Blink = 0;
-    public static float _cooldown_Blink = 5.0f;
-    public static float _cur_Cooldown_Blink = 5.0f;
+    [SerializeField] private float _blink_Range = 11.5f;
+    [SerializeField] private int _you_Have_Blink = 0;
+    [SerializeField] private float _cooldown_Blink = 5.0f;
+    [SerializeField] private float _cur_Cooldown_Blink = 5.0f;
     public float _blink_duration = 0.3f;
     public int flag = 0;
 
-    public float display1;
-    public float display2;
-    public float display3;
-
+    public bool isInvul = false;
+    public float invultime = 0;
     //Анимация
     public PlayerArm PlayerArm;
+    public SpriteRenderer ArmSpriteRenderer;
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     void Start()
     {
+        audioData = GetComponent<AudioSource>();
+
         CurHp = StartHp;
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -86,24 +89,31 @@ public class Player : MonoBehaviour
             _cur_Cooldown_Blink += Time.deltaTime;
         }
         Burner_by_time();
-        display1 = get_cooldown_blink();
-        display2 = _cur_Cooldown_Blink;
-        display3 = _blink_Range;
+
+        if (isInvul && invultime < 1f)
+        {
+            invultime += Time.deltaTime;
+        }
+        if (invultime >= 1f) { 
+            isInvul = false;
+            invultime = 0f;
+        }
+
 
         //Анимация движения, будет проигрываться, когда игрок двигается
         animator.SetBool("isMoving", _moveVector.magnitude > 0);
         CheckFlipX();
     }
+    /// <summary>
+    /// Функция поворота игрока в сторону мыши
+    /// </summary>
     void CheckFlipX()
     {
-        // Если угол больше 90 градусов, значит игрок смотрит влево
-        bool shouldFlip = PlayerArm.get_angle() > 90f || PlayerArm.get_angle() < -90f;
-
-        // Если текущее состояние flipX не совпадает с направлением, переключаем его
+        bool shouldFlip = PlayerArm.get_targetAngle() > 90f || PlayerArm.get_targetAngle() < -90f;
         if (spriteRenderer.flipX != shouldFlip)
         {
-            // Переключаем значение flipX напрямую
             spriteRenderer.flipX = shouldFlip;
+            ArmSpriteRenderer.flipY = shouldFlip;
         }
     }
     /// <summary>
@@ -119,7 +129,7 @@ public class Player : MonoBehaviour
             _timer = 0f; // Сбрасываем таймер
             CurHp += _timeBurner;//TRAD думаю поменять на TakeDamage(-_timeBurner)
             //TRAD решил перенести сюда, чтобы не проверять каждый deltaTime, добавлю во все места в коде, где этого еще нет
-            ChackDie();
+            CheckDie();
         }
     }
 
@@ -128,7 +138,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Проверяет хп героя. если оно <=0 то убивает его
     /// </summary>
-    void ChackDie()
+    void CheckDie()
     {
         if (CurHp <= 0)
         {
@@ -140,41 +150,77 @@ public class Player : MonoBehaviour
     /// </summary>
     void Die()
     {
-        Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
-        SceneManager.LoadScene("SampleScene");
-    }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        //Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
 
-    /// <summary>
-    /// Возвращает текущее здоровье игрока
-    /// </summary>
-    /// <returns></returns>
-    
-   
+    }
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
     /// </summary>
     /// <param name="damage"></param>
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector2 pushFrom, float pushPower)
     {
-        CurHp -= damage;
-        ChackDie(); 
+
+
+        PushPlayer(pushFrom, pushPower);
+        if (!isInvul) { 
+            if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
+                Die();
+            else 
+            {
+                
+                audioData.clip = sound[Random.Range(0,4)];
+                audioData.Play();
+
+                CurHp -= (int)(damage * (1 - Protection));
+                isInvul = true;
+            }
+        }
+    }
+
+    private void invulnerability(float invulTime)
+    {
+        //TODO анимация
+
+
+    }    
+
+    public void Heal(int damage)
+    {
+        CurHp += damage; //(int)(damage * (1 + HealBoost));
+    }
+
+    public void PushPlayer(Vector2 pushFrom, float pushPower)
+    {
+        // Если нет прикреплённого Rigidbody2D, то выйдем из функции
+        if (_rb == null || pushPower == 0)
+        {
+            return;
+        }
+        // Определяем в каком направлении должен отлететь объект
+        // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
+        var pushDirection = (pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+
+
+        _rb.AddForce(pushDirection * pushPower);
     }
 
 
+    /// <summary>
+    /// используется при покупке предметов
+    /// </summary>
+    /// <param name="price"></param>
+    public void Buy(int price){CurHp -= price;} 
     //Getters
-    public int get_CurHp(){return CurHp;}
-    public int get_Damage(){return DamageBullet;}
-    public float get_cooldown_blink() { return _cooldown_Blink; }
-
-
-
+    public int get_CurHp() => CurHp;
+    public int get_Damage() => DamageBullet;
+    public float get_cooldown_blink() => _cooldown_Blink;
     //Setters
     public void damage_Up(int damage){ DamageBullet += damage;}
+    public void protection_Up(double protection) { Protection += protection ; } // * (1 - Protection)
+    public void Heal_Up(double healBoost) { HealBoost += healBoost; }
+
     public void blink_Up() { _you_Have_Blink = 1;}
     public void blink_range_Up(float range) {_blink_Range += range;}
     public void blink_cooldown_reduction(float reduction) { _cooldown_Blink -= _cooldown_Blink * reduction; }
-
-
-
-
 }

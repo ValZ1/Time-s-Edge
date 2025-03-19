@@ -1,9 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemySpawnPoint : MonoBehaviour
 {
-    public GameObject PrefabEnemy;
-    public float CooldownSpawn = 5.0f;
+    public List<GameObject> PrefabEnemys;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -11,11 +12,9 @@ public class EnemySpawnPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CooldownSpawn >= 5.0f)
-        {
-            Instantiate(PrefabEnemy, transform.position, Quaternion.identity);
-            CooldownSpawn = 0.0f;
-        }
-        CooldownSpawn += Time.deltaTime;
+    }
+    public void SpawnEnemy(int index)
+    {
+        Instantiate(PrefabEnemys[index], transform.position, Quaternion.identity);
     }
 }
