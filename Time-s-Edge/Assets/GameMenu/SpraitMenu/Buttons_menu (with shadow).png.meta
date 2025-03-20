@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5a16971e4fe50a54bb993823f3bb7f18
+guid: 0d85ecf94f3757645a8875264feeb92d
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Buttons_menu (with shadow)_0: 6116053387217961779
+      Buttons_menu (with shadow)_1: 7014031900621872124
+      Buttons_menu (with shadow)_2: 3731058175193037972
+      Buttons_menu (with shadow)_3: 1982901670033720279
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
