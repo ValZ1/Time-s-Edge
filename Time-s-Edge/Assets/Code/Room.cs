@@ -14,6 +14,7 @@ public class Room : MonoBehaviour
     void Start()
     {
         Waves = Random.Range(2, 4);
+        OpenDoors();
     }
 
     // Update is called once per frame

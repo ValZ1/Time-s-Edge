@@ -5,6 +5,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject _menu;
+    [SerializeField] private GameObject _loseMenu;
     [SerializeField] private Player _player;
     [SerializeField] private GameObject _playerArm;
     private bool _isMenuActive = false;
@@ -12,13 +13,25 @@ public class MenuManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         _menu.SetActive(_isMenuActive);
+        _loseMenu.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (!_player.isDie)
         {
-            MenuControl();
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                MenuControl();
+            }
+        }
+        else
+        {
+            LoseMenuControl();
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                ExitToMenu();
+            }
         }
     }
     private void MenuControl()
@@ -28,6 +41,13 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = _isMenuActive ? 0f : 1f;
         _player.enabled = !_isMenuActive;
         _playerArm.SetActive(!_isMenuActive);
+    }
+    private void LoseMenuControl()
+    {
+        Time.timeScale = 0f;
+        _player.enabled = false;
+        _playerArm.SetActive(false);
+        _loseMenu.SetActive(true);
     }
     public void Save()
     {
