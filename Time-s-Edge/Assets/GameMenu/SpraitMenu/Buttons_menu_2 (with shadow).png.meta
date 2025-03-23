@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 7425b6c4467225f488f31ed75baec44f
+guid: 6c3f1bb4a3dd0f9409d307ada0af3460
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6116053387217961779
-    second: Buttons_menu (with shadow)_0
+      213: -7233809137331083341
+    second: Buttons_menu_2 (with shadow)_0
   - first:
-      213: 7014031900621872124
-    second: Buttons_menu (with shadow)_1
+      213: 9212054821021182910
+    second: Buttons_menu_2 (with shadow)_1
   - first:
-      213: 3731058175193037972
-    second: Buttons_menu (with shadow)_2
+      213: 2244270157317329311
+    second: Buttons_menu_2 (with shadow)_2
   - first:
-      213: 1982901670033720279
-    second: Buttons_menu (with shadow)_3
+      213: -6137347943451231639
+    second: Buttons_menu_2 (with shadow)_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,29 +109,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Buttons_menu (with shadow)_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 47
-        width: 77
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3338374c62690e450800000000000000
-      internalID: 6116053387217961779
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buttons_menu (with shadow)_1
+      name: Buttons_menu_2 (with shadow)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -146,14 +124,36 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cfb13d70ad8d65160800000000000000
-      internalID: 7014031900621872124
+      spriteID: 3b7e76c7ae85c9b90800000000000000
+      internalID: -7233809137331083341
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Buttons_menu (with shadow)_2
+      name: Buttons_menu_2 (with shadow)_1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 47
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebb646a5d0bc7df70800000000000000
+      internalID: 9212054821021182910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Buttons_menu_2 (with shadow)_2
       rect:
         serializedVersion: 2
         x: 0
@@ -168,14 +168,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 49cb2b074a167c330800000000000000
-      internalID: 3731058175193037972
+      spriteID: f91d8e241df352f10800000000000000
+      internalID: 2244270157317329311
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Buttons_menu (with shadow)_3
+      name: Buttons_menu_2 (with shadow)_3
       rect:
         serializedVersion: 2
         x: 0
@@ -190,8 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7d383e2209ea48b10800000000000000
-      internalID: 1982901670033720279
+      spriteID: 96a7d9fff82c3daa0800000000000000
+      internalID: -6137347943451231639
       vertices: []
       indices: 
       edges: []

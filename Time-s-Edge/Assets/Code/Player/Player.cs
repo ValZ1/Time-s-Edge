@@ -11,11 +11,7 @@ public class Player : MonoBehaviour
 
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
-    //TRAD - to read and delete - буду оставлять с этой аббревиатурой комментарии на некоторых незначительных изменениях. оставлять их не стоит
-    //но стоит держать в уме
-    private int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
-                               //TRAD чтобы просмотреть здоровье игрока - get_CurHp(), изменить его - TakeDamage.
-                               //TRAD думаю поменять тип на double, чтобы иметь возможность отнимать не 1хп/сек, а 1.5 и проч. приколы.
+    private int CurHp;  
     private Vector2 _moveVector;
 
     public int _timeBurner = -1; //паблик потому что лень методы делать)
@@ -29,8 +25,6 @@ public class Player : MonoBehaviour
     [SerializeField] private double Protection = 0.0;
 
     [SerializeField] private double HealBoost = 0.0;
-    //ну а че вы хотели
-    //4 blink
     [SerializeField] private float _blink_Range = 11.5f;
     [SerializeField] private int _you_Have_Blink = 0;
     [SerializeField] private float _cooldown_Blink = 5.0f;
@@ -46,6 +40,15 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
+
+
+    //
+    Vector2 pushDirection;
+    bool is_push = false;
+    float push_time = 2.99f;
+    float delta = 1.01f;
+    int timer = 0;
     void Start()
     {
         audioData = GetComponent<AudioSource>();
@@ -55,9 +58,11 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+
     void Update()
     {
-        //TRAD ИМХО, стоит перенести в отдельную функцию и постоянно вызывать ее в Update
+        
         //Передвижение игрока
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
@@ -99,6 +104,27 @@ public class Player : MonoBehaviour
             invultime = 0f;
         }
 
+        if (is_push)
+        {
+            if (timer == 3)
+            {
+                _rb.AddForce(pushDirection * Time.deltaTime / delta);
+                timer = 0;
+            }
+            else
+                {
+                timer += 1;
+            }
+            delta *= 1.01f;
+            push_time -= Time.deltaTime;
+            if (push_time <= 0)
+            {
+                is_push = false;
+                push_time = 0.99f;
+                delta = 1.01f;
+            }
+
+        }
 
         //Анимация движения, будет проигрываться, когда игрок двигается
         animator.SetBool("isMoving", _moveVector.magnitude > 0);
@@ -116,6 +142,14 @@ public class Player : MonoBehaviour
             ArmSpriteRenderer.flipY = shouldFlip;
         }
     }
+
+
+
+
+
+
+
+
     /// <summary>
     /// Хваленая механика постоянной потери здоровья
     /// </summary>
@@ -162,13 +196,14 @@ public class Player : MonoBehaviour
     {
 
 
-        PushPlayer(pushFrom, pushPower);
         if (!isInvul) { 
             if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
                 Die();
             else 
             {
-                
+                pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+                is_push = true;
+
                 audioData.clip = sound[Random.Range(0,4)];
                 audioData.Play();
 
@@ -190,20 +225,6 @@ public class Player : MonoBehaviour
         CurHp += damage; //(int)(damage * (1 + HealBoost));
     }
 
-    public void PushPlayer(Vector2 pushFrom, float pushPower)
-    {
-        // Если нет прикреплённого Rigidbody2D, то выйдем из функции
-        if (_rb == null || pushPower == 0)
-        {
-            return;
-        }
-        // Определяем в каком направлении должен отлететь объект
-        // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
-        var pushDirection = (pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
-
-
-        _rb.AddForce(pushDirection * pushPower);
-    }
 
 
     /// <summary>
