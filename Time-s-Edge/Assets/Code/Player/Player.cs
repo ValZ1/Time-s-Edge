@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float itemDetectionRange = 2f; // Радиус обнаружения предметов
     private List<ItemFather> nearestItem = new List<ItemFather>(); // Ближайший предмет
     private ItemFather closestItem;
+
     //dmg
     public float SpeedBullet = 10.0f;
     private int DamageBullet = 1;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _cur_Cooldown_Blink = 5.0f;
     public float _blink_duration = 0.3f;
     public int flag = 0;
+    public bool isDie;
 
     public bool isInvul = false;
     public float invultime = 0;
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        isDie = false;
     }
 
 
@@ -262,8 +265,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        //Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
+        isDie = true;
 
     }
     /// <summary>
@@ -302,6 +304,7 @@ public class Player : MonoBehaviour
     {
         CurHp += damage; //(int)(damage * (1 + HealBoost));
     }
+
 
 
 

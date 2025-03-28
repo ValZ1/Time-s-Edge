@@ -14,6 +14,7 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1f;
         _menu.SetActive(_isMenuActive);
         _loseMenu.SetActive(false);
+
     }
 
     void Update()
