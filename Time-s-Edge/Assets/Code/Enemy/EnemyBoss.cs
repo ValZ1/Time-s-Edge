@@ -30,7 +30,7 @@ public class EnemyBoss : EnemyFather
 
         if (_cooldownTime >= MaxCooldownTime)
         {
-            atack_num = Random.Range(2, 3);
+            atack_num = Random.Range(1, 3);
 
         }
 
@@ -63,7 +63,7 @@ public class EnemyBoss : EnemyFather
         _cooldownTime += Time.deltaTime;
         _cooldownChaseTime += Time.deltaTime;
     }
-
+    //22
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4125122293918997229}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3b4a7383846b24990f3e89f0d1c605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 4641672882510483923, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
   SpeedEnemy: 0
   CurSpeedEnemy: 0
   RotationSpeed: 0
@@ -158,9 +158,9 @@ MonoBehaviour:
   DamageTouch: 0
   TouchDelay: 0
   CurrentDelay: 0
-  PrefabBullet: {fileID: 0}
+  PrefabBullet: {fileID: 3623083824314509764, guid: 60de52b8ba7aaad4f8ee9c826ebee782, type: 3}
   ArmCenter: {fileID: 0}
-  PrefabReturnBullet: {fileID: 0}
+  PrefabReturnBullet: {fileID: 3623083824314509764, guid: ec4750fdc7a68b344885efa7a4ede240, type: 3}
 --- !u!50 &-4125122293918997229
 Rigidbody2D:
   serializedVersion: 5
@@ -176,7 +176,7 @@ Rigidbody2D:
   m_Mass: 2222
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
