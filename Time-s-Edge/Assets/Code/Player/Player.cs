@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -18,6 +19,10 @@ public class Player : MonoBehaviour
     private float _timer = 0f;
     private Rigidbody2D _rb;
 
+    [Header("Item Detection")]
+    [SerializeField] private float itemDetectionRange = 2f; // Радиус обнаружения предметов
+    private List<ItemFather> nearestItem = new List<ItemFather>(); // Ближайший предмет
+    private ItemFather closestItem;
     //dmg
     public float SpeedBullet = 10.0f;
     private int DamageBullet = 1;
@@ -124,6 +129,10 @@ public class Player : MonoBehaviour
                 delta = 1.01f;
             }
 
+
+            DetectNearbyItems();
+            UpdateClosestItem();
+
         }
 
         //Анимация движения, будет проигрываться, когда игрок двигается
@@ -145,9 +154,78 @@ public class Player : MonoBehaviour
 
 
 
+    private void DetectNearbyItems()
+    {
+        nearestItem.Clear();
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, itemDetectionRange);
 
+        foreach (var collider in colliders)
+        {
+            ItemFather item = collider.GetComponent<ItemFather>();
+            if (item != null)
+            {
+                nearestItem.Add(item);
+            }
+        }
+    }
 
+    /// <summary>
+    /// Находит ближайший предмет и обновляет UI
+    /// </summary>
+    private void UpdateClosestItem()
+    {
+        ItemFather newClosest = null;
+        float minDistance = Mathf.Infinity;
 
+        foreach (var item in nearestItem)
+        {
+            float distance = Vector2.Distance(transform.position, item.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                newClosest = item;
+            }
+        }
+
+        // Если ближайший предмет изменился
+        if (closestItem != newClosest)
+        {
+            closestItem = newClosest;
+            UpdateItemDisplay();
+        }
+    }
+
+    /// <summary>
+    /// Обновляет отображение информации о предмете
+    /// </summary>
+    private void UpdateItemDisplay()
+    {
+        if (ItemInfoDisplay.Instance != null)
+        {
+            if (closestItem != null)
+            {
+                ItemInfoDisplay.Instance.ShowItemInfo(closestItem);
+            }
+            else
+            {
+                ItemInfoDisplay.Instance.HideInfo();
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Визуализация радиуса обнаружения
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, itemDetectionRange);
+
+        // Линия к ближайшему предмету
+        if (closestItem != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position, closestItem.transform.position);
+        }
+    }
 
 
     /// <summary>
