@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public AudioClip[] sound;
     public AudioSource audioData;
-
+    public DamageBlinkEffect blinkEffect;
 
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
@@ -173,6 +173,11 @@ public class Player : MonoBehaviour
                 audioData.Play();
 
                 CurHp -= (int)(damage * (1 - Protection));
+                if (blinkEffect != null)
+                {
+                    blinkEffect.StartBlink();
+                }
+
                 isInvul = true;
             }
         }
