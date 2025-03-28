@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     public AudioClip[] sound;
     public AudioSource audioData;
-    public DamageBlinkEffect blinkEffect;
 
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
@@ -158,10 +157,20 @@ public class Player : MonoBehaviour
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
     /// </summary>
     /// <param name="damage"></param>
+    /// BlinkEffect code
+    [SerializeField] private SpriteRenderer characterRenderer;
+    [SerializeField] private float blinkDuration = 0.5f;
+    [SerializeField] private float blinkInterval = 0.1f;
+    private Color originalColor;
+
+    private void Awake()
+    {
+          originalColor = characterRenderer.color;
+
+    }
+
     public void TakeDamage(int damage, Vector2 pushFrom, float pushPower)
     {
-
-
         PushPlayer(pushFrom, pushPower);
         if (!isInvul) { 
             if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
@@ -173,16 +182,28 @@ public class Player : MonoBehaviour
                 audioData.Play();
 
                 CurHp -= (int)(damage * (1 - Protection));
-                if (blinkEffect != null)
-                {
-                    blinkEffect.StartBlink();
-                }
-
+                StartCoroutine(BlinkEffect());
                 isInvul = true;
             }
         }
     }
+    private System.Collections.IEnumerator BlinkEffect()
+    {
+        float elapsedTime = 0f;
+        bool isRed = false; // Теперь используем флаг для красного цвета
 
+        while (elapsedTime < blinkDuration)
+        {
+            // Чередуем между красным и оригинальным цветом
+            characterRenderer.color = isRed ? originalColor : Color.red;
+            isRed = !isRed;
+            elapsedTime += blinkInterval;
+            yield return new WaitForSeconds(blinkInterval);
+        }
+
+        // Гарантируем возврат к исходному цвету
+        characterRenderer.color = originalColor;
+    }
     private void invulnerability(float invulTime)
     {
         //TODO анимация
