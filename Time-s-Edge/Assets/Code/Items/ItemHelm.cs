@@ -6,6 +6,8 @@ class Healmet : ItemFather
 
     void Start()
     {
+
+
         discriprion = "Увеличивает защиту от урона.";
         parameters = "Цена - 40\nЗащита + 1";
         lore = "Простенький шлем, выглядит надежно.";

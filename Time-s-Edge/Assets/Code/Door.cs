@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    private void Start()
-    {
-        Open();
-    }
     //Можно потом заменить SetActive на проигрывание анимации и вкл/откл коллайдера объекта
     public void Open()
     {
