@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5ddf71c6716353f4e9cecf76c009bcd7
+guid: 5c34d1bbedf4a6d4ebb91c8aa60da829
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6849510784934876879
-    second: "statue \u043A\u043E\u043F\u0438\u044F_0"
+      213: -2531241511545790211
+    second: Enemy3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "statue \u043A\u043E\u043F\u0438\u044F_0"
+      name: Enemy3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 167
-        height: 443
+        x: 8
+        y: 11
+        width: 24
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc61045c4c95e0f50800000000000000
-      internalID: 6849510784934876879
+      spriteID: df0279f91493fdcd0800000000000000
+      internalID: -2531241511545790211
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      "statue \u043A\u043E\u043F\u0438\u044F_0": 6849510784934876879
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

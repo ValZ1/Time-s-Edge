@@ -10,6 +10,7 @@ TagManager:
   - PlayerCenter
   - Boss
   - ReturningBullet
+  - Info
   layers:
   - Default
   - TransparentFX

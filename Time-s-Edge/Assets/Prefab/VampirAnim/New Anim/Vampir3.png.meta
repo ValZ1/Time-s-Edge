@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 7425b6c4467225f488f31ed75baec44f
+guid: c176c290039b51343a620db02dba9a1f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6116053387217961779
-    second: Buttons_menu (with shadow)_0
-  - first:
-      213: 7014031900621872124
-    second: Buttons_menu (with shadow)_1
-  - first:
-      213: 3731058175193037972
-    second: Buttons_menu (with shadow)_2
-  - first:
-      213: 1982901670033720279
-    second: Buttons_menu (with shadow)_3
+      213: 8864515782962077178
+    second: Vampir3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Buttons_menu (with shadow)_0
+      name: Vampir3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 47
-        width: 77
-        height: 15
+        x: 7
+        y: 4
+        width: 22
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3338374c62690e450800000000000000
-      internalID: 6116053387217961779
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buttons_menu (with shadow)_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 31
-        width: 77
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cfb13d70ad8d65160800000000000000
-      internalID: 7014031900621872124
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buttons_menu (with shadow)_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 15
-        width: 77
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 49cb2b074a167c330800000000000000
-      internalID: 3731058175193037972
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buttons_menu (with shadow)_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 77
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7d383e2209ea48b10800000000000000
-      internalID: 1982901670033720279
+      spriteID: afd5c4d6326150b70800000000000000
+      internalID: 8864515782962077178
       vertices: []
       indices: 
       edges: []
@@ -209,11 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Buttons_menu (with shadow)_0: 6116053387217961779
-      Buttons_menu (with shadow)_1: 7014031900621872124
-      Buttons_menu (with shadow)_2: 3731058175193037972
-      Buttons_menu (with shadow)_3: 1982901670033720279
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

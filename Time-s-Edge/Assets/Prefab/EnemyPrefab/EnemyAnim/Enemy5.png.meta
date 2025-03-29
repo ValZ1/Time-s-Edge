@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 15cafd8a210a21147be672a3c2c8f9a4
+guid: 4d8bf238edbde634bb5209f29b490ac3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1805139446561413502
-    second: Buttons_menu (without shadow)_0
-  - first:
-      213: -2935713779587741633
-    second: Buttons_menu (without shadow)_1
-  - first:
-      213: -7328285458556192460
-    second: Buttons_menu (without shadow)_2
-  - first:
-      213: 5943892081694607750
-    second: Buttons_menu (without shadow)_3
+      213: 6274250654562376365
+    second: Enemy5_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Buttons_menu (without shadow)_0
+      name: Enemy5_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
-        width: 77
-        height: 14
+        x: 8
+        y: 11
+        width: 22
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e79965a33c42d0910800000000000000
-      internalID: 1805139446561413502
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buttons_menu (without shadow)_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 77
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f38047d1fdf3247d0800000000000000
-      internalID: -2935713779587741633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buttons_menu (without shadow)_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 77
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 439f81ec333bc4a90800000000000000
-      internalID: -7328285458556192460
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buttons_menu (without shadow)_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 77
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6890aa03b52fc7250800000000000000
-      internalID: 5943892081694607750
+      spriteID: daad3f85abd921750800000000000000
+      internalID: 6274250654562376365
       vertices: []
       indices: 
       edges: []
@@ -209,11 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Buttons_menu (without shadow)_0: 1805139446561413502
-      Buttons_menu (without shadow)_1: -2935713779587741633
-      Buttons_menu (without shadow)_2: -7328285458556192460
-      Buttons_menu (without shadow)_3: 5943892081694607750
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
