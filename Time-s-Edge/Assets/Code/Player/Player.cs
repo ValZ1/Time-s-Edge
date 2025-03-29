@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -11,37 +12,35 @@ public class Player : MonoBehaviour
 
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
-    //TRAD - to read and delete - буду оставлять с этой аббревиатурой комментарии на некоторых незначительных изменениях. оставлять их не стоит
-    //но стоит держать в уме
-    private int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
-                               //TRAD чтобы просмотреть здоровье игрока - get_CurHp(), изменить его - TakeDamage.
-                               //TRAD думаю поменять тип на double, чтобы иметь возможность отнимать не 1хп/сек, а 1.5 и проч. приколы.
+    private int CurHp;  
     private Vector2 _moveVector;
 
-    private int _timeBurner = -1;
+    public int _timeBurner = -1; //паблик потому что лень методы делать)
     private float _timer = 0f;
     private Rigidbody2D _rb;
+
+    [Header("Item Detection")]
+    [SerializeField] private float itemDetectionRange = 2f; // Радиус обнаружения предметов
+    private List<ItemFather> nearestItem = new List<ItemFather>(); // Ближайший предмет
+    private ItemFather closestItem;
 
     //dmg
     public float SpeedBullet = 10.0f;
     private int DamageBullet = 1;
-
     //защита
     [SerializeField] private double Protection = 0.0;
-    [SerializeField] private double HealBoost = 0.0;
 
-    //ну а че вы хотели
-    //4 blink
+    [SerializeField] private double HealBoost = 0.0;
     [SerializeField] private float _blink_Range = 11.5f;
     [SerializeField] private int _you_Have_Blink = 0;
     [SerializeField] private float _cooldown_Blink = 5.0f;
     [SerializeField] private float _cur_Cooldown_Blink = 5.0f;
     public float _blink_duration = 0.3f;
     public int flag = 0;
+    public bool isDie;
 
     public bool isInvul = false;
     public float invultime = 0;
-
     //Анимация
     public PlayerArm PlayerArm;
     public SpriteRenderer ArmSpriteRenderer;
@@ -49,7 +48,14 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    public bool isDie;
+
+
+    //
+    Vector2 pushDirection;
+    bool is_push = false;
+    float push_time = 2.99f;
+    float delta = 1.01f;
+    int timer = 0;
     void Start()
     {
         audioData = GetComponent<AudioSource>();
@@ -60,9 +66,11 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         isDie = false;
     }
+
+
     void Update()
     {
-        //TRAD ИМХО, стоит перенести в отдельную функцию и постоянно вызывать ее в Update
+        
         //Передвижение игрока
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
@@ -104,6 +112,31 @@ public class Player : MonoBehaviour
             invultime = 0f;
         }
 
+        if (is_push)
+        {
+            if (timer == 3)
+            {
+                _rb.AddForce(pushDirection * Time.deltaTime / delta);
+                timer = 0;
+            }
+            else
+                {
+                timer += 1;
+            }
+            delta *= 1.01f;
+            push_time -= Time.deltaTime;
+            if (push_time <= 0)
+            {
+                is_push = false;
+                push_time = 0.99f;
+                delta = 1.01f;
+            }
+
+
+            DetectNearbyItems();
+            UpdateClosestItem();
+
+        }
 
         //Анимация движения, будет проигрываться, когда игрок двигается
         animator.SetBool("isMoving", _moveVector.magnitude > 0);
@@ -121,6 +154,83 @@ public class Player : MonoBehaviour
             ArmSpriteRenderer.flipY = shouldFlip;
         }
     }
+
+
+
+    private void DetectNearbyItems()
+    {
+        nearestItem.Clear();
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, itemDetectionRange);
+
+        foreach (var collider in colliders)
+        {
+            ItemFather item = collider.GetComponent<ItemFather>();
+            if (item != null)
+            {
+                nearestItem.Add(item);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Находит ближайший предмет и обновляет UI
+    /// </summary>
+    private void UpdateClosestItem()
+    {
+        ItemFather newClosest = null;
+        float minDistance = Mathf.Infinity;
+
+        foreach (var item in nearestItem)
+        {
+            float distance = Vector2.Distance(transform.position, item.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                newClosest = item;
+            }
+        }
+
+        // Если ближайший предмет изменился
+        if (closestItem != newClosest)
+        {
+            closestItem = newClosest;
+            UpdateItemDisplay();
+        }
+    }
+
+    /// <summary>
+    /// Обновляет отображение информации о предмете
+    /// </summary>
+    private void UpdateItemDisplay()
+    {
+        if (ItemInfoDisplay.Instance != null)
+        {
+            if (closestItem != null)
+            {
+                ItemInfoDisplay.Instance.ShowItemInfo(closestItem);
+            }
+            else
+            {
+                ItemInfoDisplay.Instance.HideInfo();
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Визуализация радиуса обнаружения
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, itemDetectionRange);
+
+        // Линия к ближайшему предмету
+        if (closestItem != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position, closestItem.transform.position);
+        }
+    }
+
+
     /// <summary>
     /// Хваленая механика постоянной потери здоровья
     /// </summary>
@@ -156,6 +266,7 @@ public class Player : MonoBehaviour
     void Die()
     {
         isDie = true;
+
     }
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
@@ -165,13 +276,14 @@ public class Player : MonoBehaviour
     {
 
 
-        PushPlayer(pushFrom, pushPower);
         if (!isInvul) { 
             if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
                 Die();
             else 
             {
-                
+                pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+                is_push = true;
+
                 audioData.clip = sound[Random.Range(0,4)];
                 audioData.Play();
 
@@ -193,20 +305,7 @@ public class Player : MonoBehaviour
         CurHp += damage; //(int)(damage * (1 + HealBoost));
     }
 
-    public void PushPlayer(Vector2 pushFrom, float pushPower)
-    {
-        // Если нет прикреплённого Rigidbody2D, то выйдем из функции
-        if (_rb == null || pushPower == 0)
-        {
-            return;
-        }
-        // Определяем в каком направлении должен отлететь объект
-        // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
-        var pushDirection = (pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
 
-
-        _rb.AddForce(pushDirection * pushPower);
-    }
 
 
     /// <summary>

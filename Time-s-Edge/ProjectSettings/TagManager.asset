@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Wall
   - PlayerCenter
+  - Boss
+  - ReturningBullet
   layers:
   - Default
   - TransparentFX
