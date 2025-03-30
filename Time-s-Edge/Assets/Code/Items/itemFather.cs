@@ -110,9 +110,6 @@ public abstract class ItemFather : MonoBehaviour
         {
            
             _isPlayerInTrigger = true;
-            //_display.descriptionText = discriprion;
-            //_display.parametersText = 
-            //_display.loreText =
             _display.ShowItemInfo(this);
             
         }
