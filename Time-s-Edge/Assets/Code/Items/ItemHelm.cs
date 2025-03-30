@@ -17,6 +17,7 @@ class Healmet : ItemFather
     }
     public override void Affect()
     {
+        base.Affect();
         player.protection_Up(0.1); //пока что так, но необходимо будет как то пересмотреть эту тему
     }
 }

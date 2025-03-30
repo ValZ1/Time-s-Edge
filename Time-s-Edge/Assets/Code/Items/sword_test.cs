@@ -20,6 +20,7 @@ class sword_test : ItemFather
     }
     public override void Affect()
     {
+        base.Affect();
         player.damage_Up(1);
     }
 }

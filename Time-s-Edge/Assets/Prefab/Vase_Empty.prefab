@@ -103,6 +103,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealtPotion: {fileID: 0}
   Hp: 1
+  audioData: {fileID: 0}
+  sound:
+  - {fileID: 0}
 --- !u!70 &-8381377717446270937
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

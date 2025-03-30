@@ -4,8 +4,8 @@ public class Barrel : MonoBehaviour
 {
     public GameObject HealtPotion;
     public int Hp = 2;
-
-
+    public AudioSource audioData;
+    public AudioClip[] sound;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,6 +25,10 @@ public class Barrel : MonoBehaviour
             {
                 Instantiate(HealtPotion, transform.position, transform.rotation);
             }
+
+            audioData.clip = sound[Random.Range(0, 2)];
+            audioData.Play();
+
             Destroy(gameObject);
         }
         Destroy(collision.gameObject);
