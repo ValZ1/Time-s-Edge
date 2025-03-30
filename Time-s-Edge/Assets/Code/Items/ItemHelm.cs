@@ -4,9 +4,9 @@ using UnityEngine;
 class Healmet : ItemFather
 {
 
-    void Start()
+    protected override void Start()
     {
-
+        base.Start();
 
         discriprion = "Увеличивает защиту от урона.";
         parameters = "Цена - 40\nЗащита + 1";

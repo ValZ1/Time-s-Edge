@@ -21,9 +21,9 @@ public enum Item_type //классификация необходима для подбора иконок + упрощает л
 public abstract class ItemFather : MonoBehaviour
 {
     [SerializeField] protected Player player;//у кого хп отнимать?
-    public string _name; //имя предмета
+    private ItemInfoDisplay _display;
 
-    public ItemInfoDisplay _display;
+    public string _name; //имя предмета
 
     [SerializeField] protected int _price;  //цена предмета
     public Item_type _itemType; //тип предмета
@@ -52,10 +52,12 @@ public abstract class ItemFather : MonoBehaviour
 
 
     public TextMeshProUGUI Text;
-    void Start()
+    protected virtual void Start()
     {
+        player = FindFirstObjectByType<Player>();
+        _display = player.GetComponent<ItemInfoDisplay>();
     }
-    
+
     /// <summary>
     /// абстрактный метод, определяется для каждого объекта по своему. При применении вызывает желаемое воздействие на игрока
     /// </summary>
@@ -91,8 +93,6 @@ public abstract class ItemFather : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         
-        
-            Player player = other.GetComponent<Player>();
             if (player != null && player.get_CurHp() > _price && Input.GetKeyDown(KeyCode.E))
             {
                 player.Buy(_price);
@@ -106,19 +106,24 @@ public abstract class ItemFather : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _display.ShowItemInfo(this);
         if (other.CompareTag("Player"))
         {
+           
             _isPlayerInTrigger = true;
+            //_display.descriptionText = discriprion;
+            //_display.parametersText = 
+            //_display.loreText =
+            _display.ShowItemInfo(this);
+            
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        _display.HideInfo();
         if (other.CompareTag("Player"))
         {
             _isPlayerInTrigger = false;
+            _display.HideInfo();
         }
     }
 }

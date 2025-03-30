@@ -4,8 +4,10 @@ using UnityEngine;
 class NoDegenerationPill : ItemFather
 {
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         discriprion = "Полностью исцеляет ваши травмы";
         parameters = " ";
         lore = "Но устроит ли вас это?"; //отсылка на студ. столовую, курочку не трогать!!!

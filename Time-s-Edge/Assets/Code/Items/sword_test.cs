@@ -4,9 +4,9 @@ using UnityEngine;
 class sword_test : ItemFather
 {
 
-    void Start()
+    protected override void Start()
     {
-
+        base.Start();
 
         discriprion = "Молоток.Увеличивает урон.";
         parameters = "Цена - 60\nУрон +1";

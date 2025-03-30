@@ -3,8 +3,9 @@ using UnityEngine;
 
 class ItemBlink : ItemFather
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
 
         discriprion = "Позволяет совершать резкий рывок в сторону движения на клавишу Z. Перезарядка и дальность могут изменяться при наличии нескольких экземпляров.";
         parameters = "Цена - 40 \nбазовая перезарядка - 3 сек.\n уменьшение перезарядки - 10%\n дальность - 115\n увеличение дальности - 10\n ";

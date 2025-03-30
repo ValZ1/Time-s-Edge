@@ -10,7 +10,7 @@ public class ItemInfoDisplay : MonoBehaviour
     [SerializeField] private GameObject infoPanel;
     [SerializeField] public TMP_Text descriptionText;
     [SerializeField] public TMP_Text parametersText;
-    [SerializeField] public TMP_Text loreText;
+    [SerializeField] public TMP_Text loreText;  
 
     private void Awake()
     {
@@ -37,12 +37,10 @@ public class ItemInfoDisplay : MonoBehaviour
         // Активируем панель
         infoPanel.SetActive(true);
 
-        Debug.Log($"Displaying: {item.discriprion}");
     }
 
     public void HideInfo()
     {
         infoPanel.SetActive(false);
-        Debug.Log("Info panel hidden");
     }
 }
