@@ -1,8 +1,9 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EnemyShooter : EnemyFather
 {
-
+    private float angle;
     protected override void Start()
     {
         base.Start();
@@ -20,6 +21,7 @@ public class EnemyShooter : EnemyFather
         _cooldownChaseTime = MaxCooldownChaseTime;
         _rb = GetComponent<Rigidbody2D>();
         _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
+        animator = GetComponent<Animator>();
     }
 
 
@@ -34,19 +36,22 @@ public class EnemyShooter : EnemyFather
         var distanceToPlayer = Vector2.Distance(_playerCenter.position, transform.position);
         if (distanceToPlayer > DistanceShoot && _cooldownChaseTime >= MaxCooldownChaseTime)
         {
+            animator.SetBool("isEnemyMoving", true);
             _rb.MovePosition(Vector2.MoveTowards(_rb.position, _playerCenter.position, CurSpeedEnemy));
         }
         else if (distanceToPlayer <= DistanceShoot && _cooldownTime >= MaxCooldownTime)
         {
+            animator.SetBool("isEnemyMoving", false);
             //В будущем требует доработки, попытаюсь реализовать стрельбу в сторону движения игрока
             Vector3 direction = _playerCenter.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
             ArmCenter.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
             Instantiate(PrefabBullet, transform.position, ArmCenter.rotation);
             _cooldownTime = 0.0f;
             _cooldownChaseTime = 0.0f;
         }
+        CheckFlipX(angle);
         _cooldownTime += Time.deltaTime;
         _cooldownChaseTime += Time.deltaTime;
     }
