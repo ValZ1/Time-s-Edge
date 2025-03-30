@@ -52,7 +52,7 @@ public class ReturningBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.TakeDamage(10, transform.position, 0.3f);
+            player.TakeDamage(7, transform.position, 0.3f);
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Boss") && isReturning == true)

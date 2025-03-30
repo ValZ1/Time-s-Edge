@@ -37,7 +37,7 @@ public class EnemyFather : MonoBehaviour
 
     protected Transform _playerCenter;
     protected Rigidbody2D _rb;
-    protected int _curEnemyHp;
+    public int _curEnemyHp;
 
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;

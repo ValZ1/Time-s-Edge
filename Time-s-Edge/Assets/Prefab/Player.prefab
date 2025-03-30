@@ -1835,6 +1835,7 @@ MonoBehaviour:
   _timeBurner: -1
   itemDetectionRange: 2
   SpeedBullet: 10
+  DamageBullet: 1
   Protection: 0
   HealBoost: 0
   _blink_Range: 11.5
@@ -1844,8 +1845,6 @@ MonoBehaviour:
   _blink_duration: 0.3
   flag: 0
   isDie: 0
-  isInvul: 0
-  invultime: 0
   PlayerArm: {fileID: 1006050597886979896}
   ArmSpriteRenderer: {fileID: 5737079758251599463}
 --- !u!114 &413104534601263382
