@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4125122293918997229}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Boss
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   CurrentDelay: 0
   PrefabBullet: {fileID: 3623083824314509764, guid: 60de52b8ba7aaad4f8ee9c826ebee782, type: 3}
   ArmCenter: {fileID: 0}
+  _curEnemyHp: 0
   PrefabReturnBullet: {fileID: 3623083824314509764, guid: ec4750fdc7a68b344885efa7a4ede240, type: 3}
 --- !u!50 &-4125122293918997229
 Rigidbody2D:
