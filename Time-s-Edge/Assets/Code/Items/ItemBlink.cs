@@ -17,6 +17,7 @@ class ItemBlink : ItemFather
     }
     public override void Affect()
     {
+        base.Affect();
         player.blink_Up();
         player.blink_range_Up(1.0f);
         player.blink_cooldown_reduction(0.1f);

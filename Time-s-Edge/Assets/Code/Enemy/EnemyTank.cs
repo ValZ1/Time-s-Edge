@@ -17,7 +17,7 @@ public class EnemyTank : EnemyFather
         CurrentDelay = 0f;
         RegenHp = -40; //здоровье восполняемое за убийство с минусом
         SpeedEnemy = 0.08f;
-        _curEnemyHp = 3;
+        _curEnemyHp = 5;
         _rb = GetComponent<Rigidbody2D>();
         _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
         animator = GetComponent<Animator>();

@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     //dmg
     public float SpeedBullet = 10.0f;
-    private int DamageBullet = 1;
+    public int DamageBullet = 1;
     //защита
     [SerializeField] private double Protection = 0.0;
 
@@ -38,9 +38,10 @@ public class Player : MonoBehaviour
     public float _blink_duration = 0.3f;
     public int flag = 0;
     public bool isDie;
-
+    /*
     public bool isInvul = false;
     public float invultime = 0;
+    */
     //Анимация
     public PlayerArm PlayerArm;
     public SpriteRenderer ArmSpriteRenderer;
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
     int timer = 0;
     void Start()
     {
+
         audioData = GetComponent<AudioSource>();
 
         CurHp = StartHp;
@@ -102,15 +104,15 @@ public class Player : MonoBehaviour
             _cur_Cooldown_Blink += Time.deltaTime;
         }
         Burner_by_time();
-
-        if (isInvul && invultime < 1f)
-        {
-            invultime += Time.deltaTime;
-        }
-        if (invultime >= 1f) { 
+        
+        //if (isInvul && invultime < 1f)
+        //{
+        //    invultime += Time.deltaTime;
+        //}
+        /*if (invultime >= 1f) { 
             isInvul = false;
             invultime = 0f;
-        }
+        }*/
 
         if (is_push)
         {
@@ -276,7 +278,7 @@ public class Player : MonoBehaviour
     {
 
 
-        if (!isInvul) { 
+       // if (!isInvul) { 
             if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
                 Die();
             else 
@@ -288,9 +290,9 @@ public class Player : MonoBehaviour
                 audioData.Play();
 
                 CurHp -= (int)(damage * (1 - Protection));
-                isInvul = true;
+          //    isInvul = true;
             }
-        }
+       // }
     }
 
     private void invulnerability(float invulTime)
