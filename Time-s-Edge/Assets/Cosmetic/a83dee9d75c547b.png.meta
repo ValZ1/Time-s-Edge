@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c176c290039b51343a620db02dba9a1f
+guid: 7197018654da23842a42ba6d81da7bac
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8864515782962077178
-    second: Vampir3_0
+      213: -5915881205386091526
+    second: a83dee9d75c547b_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 24
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vampir3_0
+      name: a83dee9d75c547b_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 4
-        width: 22
-        height: 35
+        x: 300
+        y: 416
+        width: 552
+        height: 325
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: afd5c4d6326150b70800000000000000
-      internalID: 8864515782962077178
+      spriteID: af36d8b236196eda0800000000000000
+      internalID: -5915881205386091526
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1e6107aa70ffa76469e30e73ac534a10
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Vampir3_0: 8864515782962077178
+      a83dee9d75c547b_0: -5915881205386091526
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
