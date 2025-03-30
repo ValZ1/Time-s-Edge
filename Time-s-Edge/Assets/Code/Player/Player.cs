@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     //dmg
     public float SpeedBullet = 10.0f;
-    private int DamageBullet = 1;
+    public int DamageBullet = 1;
     //защита
     [SerializeField] private double Protection = 0.0;
 
@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
     int timer = 0;
     void Start()
     {
+
         audioData = GetComponent<AudioSource>();
 
         CurHp = StartHp;

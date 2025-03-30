@@ -16,7 +16,7 @@ public class EnemyShooter : EnemyFather
         RegenHp = -20;
         MaxCooldownTime = 1.0f;
         MaxCooldownChaseTime = 2.0f;
-        _curEnemyHp = 5;
+        _curEnemyHp = 4;
         _cooldownTime = MaxCooldownTime;
         _cooldownChaseTime = MaxCooldownChaseTime;
         _rb = GetComponent<Rigidbody2D>();
