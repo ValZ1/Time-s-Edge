@@ -284,7 +284,7 @@ public class Player : MonoBehaviour
                 pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
                 is_push = true;
 
-                audioData.clip = sound[Random.Range(0,4)];
+                audioData.clip = sound[Random.Range(0,22)];
                 audioData.Play();
 
                 CurHp -= (int)(damage * (1 - Protection));
