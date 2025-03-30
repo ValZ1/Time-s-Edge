@@ -24554,6 +24554,18 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5007711114986669927, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d7cf8fb60f219dc41ae40e924aa3b17b, type: 2}
+    - target: {fileID: 5007711114986669927, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5007711114986669927, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5737079758251599463, guid: c68d5a2c4afe8504d8247a1dfef94693, type: 3}
       propertyPath: m_SortingOrder
       value: 4
