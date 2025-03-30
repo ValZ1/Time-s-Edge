@@ -4,8 +4,9 @@ using UnityEngine;
 class ItemHeal : ItemFather
 {
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         discriprion = "Лечит";
         parameters = "Цена - 0 \nЛечение - 120";
         lore = "Вкуснейшая 'Курочка острая', но как она тут оказалась?"; //отсылка на студ. столовую, курочку не трогать!!!

@@ -17,7 +17,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (other.TryGetComponent(out Player player))
         {
-            player.TakeDamage(DamageBullet, transform.position, -0.1f);
+            player.TakeDamage(DamageBullet, transform.position, 1.1f);
             Destroy(gameObject);
         }
         if (other.tag == "Wall")

@@ -1,8 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
-guid: f4f16c4c2decfa046b3fb8fcccf6078e
-=======
-guid: 43106e5011c4a804ea0d25ff1f03b604
+guid: f8035c4234870c24689a694f331f8310
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -49,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -87,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -212,10 +209,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Buttons_menu_2 (without shadow)_0: -2826424298955328775
+      Buttons_menu_2 (without shadow)_1: 5740533748095638342
+      Buttons_menu_2 (without shadow)_2: -2719056459321231870
+      Buttons_menu_2 (without shadow)_3: 7465481517644329618
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
->>>>>>> Stashed changes
