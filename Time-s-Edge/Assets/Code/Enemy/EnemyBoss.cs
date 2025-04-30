@@ -11,14 +11,14 @@ public class EnemyBoss : EnemyFather
         RotationSpeed = 2.0f;
         DistanceShoot = 16.0f;
         RegenHp = -200;
-        MaxCooldownTime = 2.9f;
-        _curEnemyHp = 45;
+        MaxCooldownTime = 2.5f;
+        _curEnemyHp = 50;
         _cooldownTime = MaxCooldownTime;
         _rb = GetComponent<Rigidbody2D>();
         _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
     }
-    float accuracy = 0.7f; 
-    float spreadAngle = 22.0f; 
+    float accuracy = 1.0f; // ��������� (��� ������, ��� ������)
+    float spreadAngle = 30.0f; // ���� �������� � ��������
 
     int atack_num = 0;
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class EnemyBoss : EnemyFather
             Quaternion baseRotation = Quaternion.Euler(0, 0, baseAngle);
             
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 10; i++)
             {
                 float randomSpread = Random.Range(-spreadAngle, spreadAngle) * accuracy;
                 Quaternion spreadRotation = Quaternion.Euler(0, 0, baseAngle + randomSpread);
@@ -79,19 +79,25 @@ public class EnemyBoss : EnemyFather
     {
         for (int i = 0; i < bulletCount; i++)
         {
+            // Случайный угол для направления пули
             float randomAngle = Random.Range(0f, 360f);
             Quaternion rotation = Quaternion.Euler(0, 0, randomAngle);
 
+            // Направление движения пули
             Vector2 direction = rotation * Vector2.right;
 
-            float offsetDistance = 2.4f; 
+            // Смещение точки создания пули на n единиц от центра босса
+            float offsetDistance = 2.4f; // Расстояние от центра босса (можно настроить)
             Vector2 spawnPosition = (Vector2)transform.position + direction * offsetDistance;
 
+            // Создание пули
             GameObject bullet = Instantiate(PrefabReturnBullet, spawnPosition, rotation);
 
+            // Настройка пули
             ReturningBullet returningBullet = bullet.GetComponent<ReturningBullet>();
             returningBullet.isReturning = false; // Явно устанавливаем значение
 
+            // Задание скорости пули
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
             bulletRb.linearVelocity = direction * returningBullet.bulletSpeed;
         }

@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
-    private int CurHp;  
+    private int CurHp;
     private Vector2 _moveVector;
 
     public int _timeBurner = -1; //паблик потому что лень методы делать)
@@ -37,20 +37,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _cur_Cooldown_Blink = 5.0f;
     public float _blink_duration = 0.3f;
     public int flag = 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public bool isDie;
     /*
-=======
-
->>>>>>> parent of e889b95 (655)
-=======
-
->>>>>>> parent of e889b95 (655)
-=======
-
->>>>>>> parent of e889b95 (655)
     public bool isInvul = false;
     public float invultime = 0;
     */
@@ -84,7 +72,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
+
         //Передвижение игрока
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
@@ -96,8 +84,8 @@ public class Player : MonoBehaviour
         _rb.MovePosition(_rb.position + _moveVector * SpeedPlayer);
 
 
-        if (_you_Have_Blink == 1) 
-        { 
+        if (_you_Have_Blink == 1)
+        {
             if (Input.GetKeyDown(KeyCode.Z) && _cur_Cooldown_Blink >= _cooldown_Blink)
             {
                 _cur_Cooldown_Blink = 0;
@@ -116,7 +104,7 @@ public class Player : MonoBehaviour
             _cur_Cooldown_Blink += Time.deltaTime;
         }
         Burner_by_time();
-        
+
         //if (isInvul && invultime < 1f)
         //{
         //    invultime += Time.deltaTime;
@@ -134,7 +122,7 @@ public class Player : MonoBehaviour
                 timer = 0;
             }
             else
-                {
+            {
                 timer += 1;
             }
             delta *= 1.01f;
@@ -288,82 +276,31 @@ public class Player : MonoBehaviour
     /// <param name="damage"></param>
     public void TakeDamage(int damage, Vector2 pushFrom, float pushPower)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 
-       // if (!isInvul) { 
-=======
-        PushPlayer(pushFrom, pushPower);
-        if (!isInvul) { 
->>>>>>> parent of e889b95 (655)
-=======
-        PushPlayer(pushFrom, pushPower);
-        if (!isInvul) { 
->>>>>>> parent of e889b95 (655)
-=======
-        PushPlayer(pushFrom, pushPower);
-        if (!isInvul) { 
->>>>>>> parent of e889b95 (655)
-            if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
-                Die();
-            else 
-            {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
-                is_push = true;
-
-                audioData.clip = sound[Random.Range(0,22)];
-                audioData.Play();
-
-                CurHp -= (int)(damage * (1 - Protection));
-          //    isInvul = true;
-            }
-       // }
-    }
-
-=======
-=======
->>>>>>> parent of e889b95 (655)
-=======
->>>>>>> parent of e889b95 (655)
-                
-                audioData.clip = sound[Random.Range(0,4)];
-                audioData.Play();
-
-                CurHp -= (int)(damage * (1 - Protection));
-                StartCoroutine(BlinkEffect());
-                isInvul = true;
-            }
-        }
-    }
-    private System.Collections.IEnumerator BlinkEffect()
-    {
-        float elapsedTime = 0f;
-        bool isRed = false; // Теперь используем флаг для красного цвета
-
-        while (elapsedTime < blinkDuration)
+        // if (!isInvul) { 
+        if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
+            Die();
+        else
         {
-            // Чередуем между красным и оригинальным цветом
-            characterRenderer.color = isRed ? originalColor : Color.red;
-            isRed = !isRed;
-            elapsedTime += blinkInterval;
-            yield return new WaitForSeconds(blinkInterval);
-        }
+            pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+            is_push = true;
 
-        // Гарантируем возврат к исходному цвету
-        characterRenderer.color = originalColor;
+            audioData.clip = sound[Random.Range(0, 22)];
+            audioData.Play();
+
+            CurHp -= (int)(damage * (1 - Protection));
+            //    isInvul = true;
+        }
+        // }
     }
->>>>>>> parent of e889b95 (655)
+
     private void invulnerability(float invulTime)
     {
         //TODO анимация
 
 
-    }    
+    }
 
     public void Heal(int damage)
     {
@@ -377,17 +314,17 @@ public class Player : MonoBehaviour
     /// используется при покупке предметов
     /// </summary>
     /// <param name="price"></param>
-    public void Buy(int price){CurHp -= price;} 
+    public void Buy(int price) { CurHp -= price; }
     //Getters
     public int get_CurHp() => CurHp;
     public int get_Damage() => DamageBullet;
     public float get_cooldown_blink() => _cooldown_Blink;
     //Setters
-    public void damage_Up(int damage){ DamageBullet += damage;}
-    public void protection_Up(double protection) { Protection += protection ; } // * (1 - Protection)
+    public void damage_Up(int damage) { DamageBullet += damage; }
+    public void protection_Up(double protection) { Protection += protection; } // * (1 - Protection)
     public void Heal_Up(double healBoost) { HealBoost += healBoost; }
 
-    public void blink_Up() { _you_Have_Blink = 1;}
-    public void blink_range_Up(float range) {_blink_Range += range;}
+    public void blink_Up() { _you_Have_Blink = 1; }
+    public void blink_range_Up(float range) { _blink_Range += range; }
     public void blink_cooldown_reduction(float reduction) { _cooldown_Blink -= _cooldown_Blink * reduction; }
 }

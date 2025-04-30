@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ReturningBullet : MonoBehaviour
 {
-    public float bulletSpeed = 6f; 
+    public float bulletSpeed = 5f; 
     public bool isReturning = false;
     private Transform bossTransform;
     private GameObject boss;
@@ -52,7 +52,7 @@ public class ReturningBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.TakeDamage(7, transform.position, 0.3f);
+            player.TakeDamage(5, transform.position, 0.3f);
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Boss") && isReturning == true)
@@ -64,16 +64,7 @@ public class ReturningBullet : MonoBehaviour
         {
             isReturning = true;
         }
-
-        else if (collision.gameObject.CompareTag("vase"))
-        {
-            isReturning = true;
-        }
-        else if (collision.gameObject.CompareTag("decoration"))
-        {
-            isReturning = true;
-        }
-
-
+        
+        
     }
 }

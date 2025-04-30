@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8381377717446270937}
   m_Layer: 0
   m_Name: Vase
-  m_TagString: vase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,10 +103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealtPotion: {fileID: 6954968702640625, guid: d9c623b5d5840734981068a410e12e33, type: 3}
   Hp: 1
-  audioData: {fileID: 0}
-  sound:
-  - {fileID: 8300000, guid: d99fda286781abf40a86c0dff4e1ff9b, type: 3}
-  - {fileID: 8300000, guid: 4dc69f7d4a275414aa71dcde1cf3c761, type: 3}
 --- !u!70 &-8381377717446270937
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

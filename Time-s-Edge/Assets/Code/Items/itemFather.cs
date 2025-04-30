@@ -34,10 +34,6 @@ public abstract class ItemFather : MonoBehaviour
     public string parameters = "Непонятно что делает";
     public string lore = "Никто не знает откуда";
 
-    public AudioSource audioData;
-    public AudioClip[] sound;
-
-
     private bool _isPlayerInTrigger = false;
     //просто перечисление всего того, что может быть в описании предмета 
     /*
@@ -54,7 +50,7 @@ public abstract class ItemFather : MonoBehaviour
    */
 
 
-    
+
     public TextMeshProUGUI Text;
     protected virtual void Start()
     {
@@ -65,10 +61,7 @@ public abstract class ItemFather : MonoBehaviour
     /// <summary>
     /// абстрактный метод, определяется для каждого объекта по своему. При применении вызывает желаемое воздействие на игрока
     /// </summary>
-    public virtual void Affect()
-    {
-      
-    }
+    public abstract void Affect();
     void Update()
     {
         //Debug.Log(player.get_CurHp());
@@ -117,6 +110,9 @@ public abstract class ItemFather : MonoBehaviour
         {
            
             _isPlayerInTrigger = true;
+            //_display.descriptionText = discriprion;
+            //_display.parametersText = 
+            //_display.loreText =
             _display.ShowItemInfo(this);
             
         }
