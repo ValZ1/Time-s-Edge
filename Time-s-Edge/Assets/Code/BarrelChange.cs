@@ -3,7 +3,7 @@ using UnityEngine;
 public class BarrelChange : MonoBehaviour
 {
     public GameObject HealthPotion;
-    public float DropChance = 20f;  
+    public float DropChance = 20f;
     public int Hp = 2;
 
     private void OnTriggerEnter2D(Collider2D collision)

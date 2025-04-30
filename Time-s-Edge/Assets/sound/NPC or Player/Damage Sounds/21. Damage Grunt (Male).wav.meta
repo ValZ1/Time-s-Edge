@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 5f92002081e74d44ab9403bc54781a71
+guid: c63f35c55e22d4b2a81f9dbc0eba64e8
 AudioImporter:
   externalObjects: {}
-  serializedVersion: 8
+  serializedVersion: 7
   defaultSettings:
     serializedVersion: 2
     loadType: 0
@@ -21,3 +21,10 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 285385
+  packageName: Damage Sounds (Male) - NPC/Player Audio Pack
+  packageVersion: 1.0
+  assetPath: Assets/NPC or Player/Damage Sounds/21. Damage Grunt (Male).wav
+  uploadId: 664931
