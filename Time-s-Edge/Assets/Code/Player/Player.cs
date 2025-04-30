@@ -36,7 +36,21 @@ public class Player : MonoBehaviour
     [SerializeField] private float _cur_Cooldown_Blink = 5.0f;
     public float _blink_duration = 0.3f;
     public int flag = 0;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+    public bool isDie;
+    /*
+>>>>>>> main
+=======
+    public bool isDie;
+    /*
+>>>>>>> main
+=======
+
+>>>>>>> parent of c09e5ba (655)
     public bool isInvul = false;
     public float invultime = 0;
     //Анимация
@@ -171,12 +185,34 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 pushFrom, float pushPower)
     {
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
         PushPlayer(pushFrom, pushPower);
         if (!isInvul) { 
+=======
+
+
+       // if (!isInvul) { 
+>>>>>>> main
+=======
+
+
+       // if (!isInvul) { 
+>>>>>>> main
+=======
+        PushPlayer(pushFrom, pushPower);
+        if (!isInvul) { 
+>>>>>>> parent of c09e5ba (655)
             if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
                 Die();
             else 
             {
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of c09e5ba (655)
                 
                 audioData.clip = sound[Random.Range(0,4)];
                 audioData.Play();
@@ -184,6 +220,32 @@ public class Player : MonoBehaviour
                 CurHp -= (int)(damage * (1 - Protection));
                 StartCoroutine(BlinkEffect());
                 isInvul = true;
+<<<<<<< HEAD
+=======
+                pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+                is_push = true;
+=======
+                pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+                is_push = true;
+
+                audioData.clip = sound[Random.Range(0,22)];
+                audioData.Play();
+
+                CurHp -= (int)(damage * (1 - Protection));
+          //    isInvul = true;
+            }
+       // }
+    }
+>>>>>>> main
+
+                audioData.clip = sound[Random.Range(0,22)];
+                audioData.Play();
+
+                CurHp -= (int)(damage * (1 - Protection));
+          //    isInvul = true;
+>>>>>>> main
+=======
+>>>>>>> parent of c09e5ba (655)
             }
         }
     }
