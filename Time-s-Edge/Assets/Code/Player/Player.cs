@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -8,28 +9,28 @@ public class Player : MonoBehaviour
     public AudioClip[] sound;
     public AudioSource audioData;
 
+
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
-    //TRAD - to read and delete - буду оставлять с этой аббревиатурой комментарии на некоторых незначительных изменениях. оставлять их не стоит
-    //но стоит держать в уме
-    private int CurHp;  //TRAD поменят тип с public на private, чтобы избежать багов связанных с бесконтрольным изменением здоровья.
-                               //TRAD чтобы просмотреть здоровье игрока - get_CurHp(), изменить его - TakeDamage.
-                               //TRAD думаю поменять тип на double, чтобы иметь возможность отнимать не 1хп/сек, а 1.5 и проч. приколы.
+    private int CurHp;  
     private Vector2 _moveVector;
 
-    private int _timeBurner = -1;
+    public int _timeBurner = -1; //паблик потому что лень методы делать)
     private float _timer = 0f;
     private Rigidbody2D _rb;
 
+    [Header("Item Detection")]
+    [SerializeField] private float itemDetectionRange = 2f; // Радиус обнаружения предметов
+    private List<ItemFather> nearestItem = new List<ItemFather>(); // Ближайший предмет
+    private ItemFather closestItem;
+
     //dmg
     public float SpeedBullet = 10.0f;
-    private int DamageBullet = 1;
+    public int DamageBullet = 1;
     //защита
     [SerializeField] private double Protection = 0.0;
 
     [SerializeField] private double HealBoost = 0.0;
-    //ну а че вы хотели
-    //4 blink
     [SerializeField] private float _blink_Range = 11.5f;
     [SerializeField] private int _you_Have_Blink = 0;
     [SerializeField] private float _cooldown_Blink = 5.0f;
@@ -39,38 +40,51 @@ public class Player : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-
-=======
     public bool isDie;
     /*
->>>>>>> main
-=======
-    public bool isDie;
-    /*
->>>>>>> main
 =======
 
->>>>>>> parent of c09e5ba (655)
+>>>>>>> parent of e889b95 (655)
+=======
+
+>>>>>>> parent of e889b95 (655)
+=======
+
+>>>>>>> parent of e889b95 (655)
     public bool isInvul = false;
     public float invultime = 0;
+    */
     //Анимация
     public PlayerArm PlayerArm;
     public SpriteRenderer ArmSpriteRenderer;
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
+
+
+    //
+    Vector2 pushDirection;
+    bool is_push = false;
+    float push_time = 2.99f;
+    float delta = 1.01f;
+    int timer = 0;
     void Start()
     {
+
         audioData = GetComponent<AudioSource>();
 
         CurHp = StartHp;
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        isDie = false;
     }
+
+
     void Update()
     {
-        //TRAD ИМХО, стоит перенести в отдельную функцию и постоянно вызывать ее в Update
+        
         //Передвижение игрока
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
@@ -102,16 +116,41 @@ public class Player : MonoBehaviour
             _cur_Cooldown_Blink += Time.deltaTime;
         }
         Burner_by_time();
-
-        if (isInvul && invultime < 1f)
-        {
-            invultime += Time.deltaTime;
-        }
-        if (invultime >= 1f) { 
+        
+        //if (isInvul && invultime < 1f)
+        //{
+        //    invultime += Time.deltaTime;
+        //}
+        /*if (invultime >= 1f) { 
             isInvul = false;
             invultime = 0f;
-        }
+        }*/
 
+        if (is_push)
+        {
+            if (timer == 3)
+            {
+                _rb.AddForce(pushDirection * Time.deltaTime / delta);
+                timer = 0;
+            }
+            else
+                {
+                timer += 1;
+            }
+            delta *= 1.01f;
+            push_time -= Time.deltaTime;
+            if (push_time <= 0)
+            {
+                is_push = false;
+                push_time = 0.99f;
+                delta = 1.01f;
+            }
+
+
+            DetectNearbyItems();
+            UpdateClosestItem();
+
+        }
 
         //Анимация движения, будет проигрываться, когда игрок двигается
         animator.SetBool("isMoving", _moveVector.magnitude > 0);
@@ -129,6 +168,83 @@ public class Player : MonoBehaviour
             ArmSpriteRenderer.flipY = shouldFlip;
         }
     }
+
+
+
+    private void DetectNearbyItems()
+    {
+        nearestItem.Clear();
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, itemDetectionRange);
+
+        foreach (var collider in colliders)
+        {
+            ItemFather item = collider.GetComponent<ItemFather>();
+            if (item != null)
+            {
+                nearestItem.Add(item);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Находит ближайший предмет и обновляет UI
+    /// </summary>
+    private void UpdateClosestItem()
+    {
+        ItemFather newClosest = null;
+        float minDistance = Mathf.Infinity;
+
+        foreach (var item in nearestItem)
+        {
+            float distance = Vector2.Distance(transform.position, item.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                newClosest = item;
+            }
+        }
+
+        // Если ближайший предмет изменился
+        if (closestItem != newClosest)
+        {
+            closestItem = newClosest;
+            UpdateItemDisplay();
+        }
+    }
+
+    /// <summary>
+    /// Обновляет отображение информации о предмете
+    /// </summary>
+    private void UpdateItemDisplay()
+    {
+        if (ItemInfoDisplay.Instance != null)
+        {
+            if (closestItem != null)
+            {
+                ItemInfoDisplay.Instance.ShowItemInfo(closestItem);
+            }
+            else
+            {
+                ItemInfoDisplay.Instance.HideInfo();
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Визуализация радиуса обнаружения
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, itemDetectionRange);
+
+        // Линия к ближайшему предмету
+        if (closestItem != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position, closestItem.transform.position);
+        }
+    }
+
+
     /// <summary>
     /// Хваленая механика постоянной потери здоровья
     /// </summary>
@@ -163,47 +279,33 @@ public class Player : MonoBehaviour
     /// </summary>
     void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        //Destroy(gameObject); //Не забыть добавить скрин GAME OVER!!!
+        isDie = true;
 
     }
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
     /// </summary>
     /// <param name="damage"></param>
-    /// BlinkEffect code
-    [SerializeField] private SpriteRenderer characterRenderer;
-    [SerializeField] private float blinkDuration = 0.5f;
-    [SerializeField] private float blinkInterval = 0.1f;
-    private Color originalColor;
-
-    private void Awake()
-    {
-          originalColor = characterRenderer.color;
-
-    }
-
     public void TakeDamage(int damage, Vector2 pushFrom, float pushPower)
     {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-        PushPlayer(pushFrom, pushPower);
-        if (!isInvul) { 
-=======
 
 
        // if (!isInvul) { 
->>>>>>> main
-=======
-
-
-       // if (!isInvul) { 
->>>>>>> main
 =======
         PushPlayer(pushFrom, pushPower);
         if (!isInvul) { 
->>>>>>> parent of c09e5ba (655)
+>>>>>>> parent of e889b95 (655)
+=======
+        PushPlayer(pushFrom, pushPower);
+        if (!isInvul) { 
+>>>>>>> parent of e889b95 (655)
+=======
+        PushPlayer(pushFrom, pushPower);
+        if (!isInvul) { 
+>>>>>>> parent of e889b95 (655)
             if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
                 Die();
             else 
@@ -211,20 +313,6 @@ public class Player : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-=======
->>>>>>> parent of c09e5ba (655)
-                
-                audioData.clip = sound[Random.Range(0,4)];
-                audioData.Play();
-
-                CurHp -= (int)(damage * (1 - Protection));
-                StartCoroutine(BlinkEffect());
-                isInvul = true;
-<<<<<<< HEAD
-=======
-                pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
-                is_push = true;
-=======
                 pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
                 is_push = true;
 
@@ -236,16 +324,19 @@ public class Player : MonoBehaviour
             }
        // }
     }
->>>>>>> main
 
-                audioData.clip = sound[Random.Range(0,22)];
+=======
+=======
+>>>>>>> parent of e889b95 (655)
+=======
+>>>>>>> parent of e889b95 (655)
+                
+                audioData.clip = sound[Random.Range(0,4)];
                 audioData.Play();
 
                 CurHp -= (int)(damage * (1 - Protection));
-          //    isInvul = true;
->>>>>>> main
-=======
->>>>>>> parent of c09e5ba (655)
+                StartCoroutine(BlinkEffect());
+                isInvul = true;
             }
         }
     }
@@ -266,6 +357,7 @@ public class Player : MonoBehaviour
         // Гарантируем возврат к исходному цвету
         characterRenderer.color = originalColor;
     }
+>>>>>>> parent of e889b95 (655)
     private void invulnerability(float invulTime)
     {
         //TODO анимация
@@ -278,20 +370,7 @@ public class Player : MonoBehaviour
         CurHp += damage; //(int)(damage * (1 + HealBoost));
     }
 
-    public void PushPlayer(Vector2 pushFrom, float pushPower)
-    {
-        // Если нет прикреплённого Rigidbody2D, то выйдем из функции
-        if (_rb == null || pushPower == 0)
-        {
-            return;
-        }
-        // Определяем в каком направлении должен отлететь объект
-        // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
-        var pushDirection = (pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
 
-
-        _rb.AddForce(pushDirection * pushPower);
-    }
 
 
     /// <summary>

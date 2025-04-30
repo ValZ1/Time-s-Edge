@@ -10,6 +10,8 @@ TagManager:
   - PlayerCenter
   - Boss
   - ReturningBullet
+  - vase
+  - decoration
   layers:
   - Default
   - TransparentFX
