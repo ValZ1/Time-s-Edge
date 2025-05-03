@@ -12,6 +12,11 @@ TagManager:
   - ReturningBullet
   - vase
   - decoration
+  - Room
+  - Passage
+  - Shop
+  - BossRoom
+  - MiniMapCamera
   layers:
   - Default
   - TransparentFX
