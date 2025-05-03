@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class EnemyKamikaze : EnemyFather
 {
-    void Start()
+    private float angle;
+    protected override void Start()
     {
+        base.Start();
+
         SpeedEnemy = 0.08f;
         CurSpeedEnemy = SpeedEnemy;
         RotationSpeed = 2.0f;
@@ -15,6 +18,7 @@ public class EnemyKamikaze : EnemyFather
         _curEnemyHp = 3;
         _rb = GetComponent<Rigidbody2D>();
         _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -29,18 +33,19 @@ public class EnemyKamikaze : EnemyFather
         //{
         _rb.MovePosition(Vector2.MoveTowards(_rb.position, _playerCenter.position, CurSpeedEnemy));
         Vector3 direction = _playerCenter.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
+        CheckFlipX(angle);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
+        animator.SetBool("isEnemyMoving",true);
         //}
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.TakeDamage(DamageKamikaze, transform.position, -0.3f);
+            player.TakeDamage(DamageKamikaze, transform.position, 0.3f);
             Die();
         }
     }

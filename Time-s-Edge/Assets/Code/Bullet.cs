@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
+        player = FindFirstObjectByType<Player>();
         Destroy(gameObject, 5);
     }
 
@@ -33,5 +34,6 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 }

@@ -24,10 +24,6 @@ public class Gun : MonoBehaviour
             _cooldownTime = 0;
             Instantiate(PrefabBullet, transform.position, ArmCenter.rotation);
         }
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(0);
-        }
         _cooldownTime += Time.deltaTime;
     }
 }

@@ -8,6 +8,10 @@ TagManager:
   - Enemy
   - Wall
   - PlayerCenter
+  - Boss
+  - ReturningBullet
+  - vase
+  - decoration
   layers:
   - Default
   - TransparentFX

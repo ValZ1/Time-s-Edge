@@ -18,18 +18,25 @@ public enum Item_type //классификация необходима для подбора иконок + упрощает л
     unique, //что то прям экстраординарное, требует координального изменения механики
     other //TODO  заполнить еще чем нить
 }
-abstract class ItemFather : MonoBehaviour
+public abstract class ItemFather : MonoBehaviour
 {
-    public Player player;//у кого хп отнимать?
+    [SerializeField] protected Player player;//у кого хп отнимать?
+    private ItemInfoDisplay _display;
+
     public string _name; //имя предмета
-    public int _price;  //цена предмета
+
+    [SerializeField] protected int _price;  //цена предмета
     public Item_type _itemType; //тип предмета
     public double _difficulty_Price_Modificator = 1; //обсудить - нужно ли это вообще или нет/снять 1чку
     public double _PriceModificator = 1; //один и тот же предмет на 1 и на 10 этаже должны стоить по разному
 
-    protected string discriprion = "Непонятно что";
-    protected string parameters = "Непонятно что делает";
-    protected string lore = "Никто не знает откуда";
+    public string discriprion = "Непонятно что";
+    public string parameters = "Непонятно что делает";
+    public string lore = "Никто не знает откуда";
+
+    public AudioSource audioData;
+    public AudioClip[] sound;
+
 
     private bool _isPlayerInTrigger = false;
     //просто перечисление всего того, что может быть в описании предмета 
@@ -47,24 +54,35 @@ abstract class ItemFather : MonoBehaviour
    */
 
 
-
-    public TextMeshProUGUI Text;
-    void Start()
-    {
-    }
     
+    public TextMeshProUGUI Text;
+    protected virtual void Start()
+    {
+        player = FindFirstObjectByType<Player>();
+        _display = player.GetComponent<ItemInfoDisplay>();
+    }
+
     /// <summary>
     /// абстрактный метод, определяется для каждого объекта по своему. При применении вызывает желаемое воздействие на игрока
     /// </summary>
-    public abstract void Affect();
+    public virtual void Affect()
+    {
+      
+    }
     void Update()
     {
-        if (_isPlayerInTrigger && player.get_CurHp() > _price && Input.GetKeyDown(KeyCode.E))
-        {
-            player.Buy(_price);
-            Die();
-            Affect();
-        }
+        //Debug.Log(player.get_CurHp());
+        if (_isPlayerInTrigger)
+            if (player.get_CurHp() > _price ){
+                if (Input.GetKeyDown(KeyCode.E)) { 
+               
+                {
+                    player.Buy(_price);
+                    Die();
+                    Affect();
+                    }
+                }
+            }
     }
     /// <summary>
     /// Уничтожает предмет
@@ -75,27 +93,42 @@ abstract class ItemFather : MonoBehaviour
     /// Открывает текст, если игрок стоит в радиусе
     /// </summary>
     /// <param name="collider"></param>
-    public void OnTriggerStay2D(Collider2D collider)
-    { 
-        if (collider.gameObject.CompareTag("Player"))
+
+
+
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        
+            if (player != null && player.get_CurHp() > _price && Input.GetKeyDown(KeyCode.E))
+            {
+                player.Buy(_price);
+                Affect();
+                ItemInfoDisplay.Instance.HideInfo();
+                Destroy(gameObject);
+            }
+        
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
         {
-            Text.text = discriprion + "\n" + parameters + "\n" + lore;
+           
             _isPlayerInTrigger = true;
+            _display.ShowItemInfo(this);
+            
         }
     }
 
-    /// <summary>
-    /// закрывает текст если игрок вышел из радиуса
-    /// </summary>
-    /// <param name="collider"></param>
-    public void OnTriggerExit2D(Collider2D collider) 
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (collider.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            Text.text = "";
             _isPlayerInTrigger = false;
-        }      
+            _display.HideInfo();
+        }
     }
-
 }
 

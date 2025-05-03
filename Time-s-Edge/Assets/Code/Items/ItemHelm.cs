@@ -4,8 +4,10 @@ using UnityEngine;
 class Healmet : ItemFather
 {
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         discriprion = "Увеличивает защиту от урона.";
         parameters = "Цена - 40\nЗащита + 1";
         lore = "Простенький шлем, выглядит надежно.";
@@ -15,6 +17,7 @@ class Healmet : ItemFather
     }
     public override void Affect()
     {
+        base.Affect();
         player.protection_Up(0.1); //пока что так, но необходимо будет как то пересмотреть эту тему
     }
 }

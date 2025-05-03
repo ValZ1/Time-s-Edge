@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyFather : MonoBehaviour
@@ -36,20 +37,33 @@ public class EnemyFather : MonoBehaviour
 
     protected Transform _playerCenter;
     protected Rigidbody2D _rb;
-    protected int _curEnemyHp;
+    public int _curEnemyHp;
 
+    protected Animator animator;
+    protected SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
 
     // Update is called once per frame
 
 
-
+    protected virtual void Start()
+    {
+        player = FindFirstObjectByType<Player>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     public void PushTest()
     {
         var l = new Vector2(3000, 3000);
         _rb.AddForce(l * 3999);
     }
-
+    protected void CheckFlipX(float angle)
+    {
+        bool shouldFlip = angle < 90f && angle > -90f;
+        if (spriteRenderer.flipX != shouldFlip)
+        {
+            spriteRenderer.flipX = shouldFlip;
+        }
+    }
     public void PushAway(Vector2 pushFrom, float pushPower)
     {
         // Если нет прикреплённого Rigidbody2D, то выйдем из функции
@@ -78,8 +92,6 @@ public class EnemyFather : MonoBehaviour
             Die();
         }
     }
-
-
 
     public void Die()
     {

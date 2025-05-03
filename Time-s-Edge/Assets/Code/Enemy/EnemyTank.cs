@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class EnemyTank : EnemyFather
 {
-     void Start()
+    private float angle;
+    protected override void Start()
     {
+        base.Start();
+
         SpeedEnemy = 0.04f;
         CurSpeedEnemy = SpeedEnemy;
         RotationSpeed = 3.0f;
@@ -14,9 +17,10 @@ public class EnemyTank : EnemyFather
         CurrentDelay = 0f;
         RegenHp = -40; //здоровье восполняемое за убийство с минусом
         SpeedEnemy = 0.08f;
-        _curEnemyHp = 3;
+        _curEnemyHp = 5;
         _rb = GetComponent<Rigidbody2D>();
         _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
+        animator = GetComponent<Animator>();
 
     }
     // Update is called once per frame
@@ -30,12 +34,14 @@ public class EnemyTank : EnemyFather
         //{
         _rb.MovePosition(Vector2.MoveTowards(_rb.position, _playerCenter.position, CurSpeedEnemy));
         Vector3 direction = _playerCenter.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
         if (CurrentDelay >= 0f) 
             CurrentDelay -= Time.deltaTime;
+        CheckFlipX(angle);
         //}
+        animator.SetBool("isEnemyMoving", true);
     }
     //TODO функция отбрасывания игрока от объекта на n метров
   

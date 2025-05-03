@@ -4,8 +4,13 @@ using UnityEngine;
 class sword_test : ItemFather
 {
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
+
+        player = FindFirstObjectByType<Player>();
+
         discriprion = "Молоток.Увеличивает урон.";
         parameters = "Цена - 60\nУрон +1";
         lore = "Именно этим молотом Родион Раскольников совершил дабл кил. Или нет?";
@@ -15,6 +20,7 @@ class sword_test : ItemFather
     }
     public override void Affect()
     {
+        base.Affect();
         player.damage_Up(1);
     }
 }
