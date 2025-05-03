@@ -67,8 +67,7 @@ public abstract class ItemFather : MonoBehaviour
     /// </summary>
     public virtual void Affect()
     {
-        audioData.clip = sound[0];
-        audioData.Play();
+      
     }
     void Update()
     {
