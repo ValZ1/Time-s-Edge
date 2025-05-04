@@ -21,6 +21,7 @@ TagManager:
   - home
   - shop
   - boss_room
+  - start_room
   layers:
   - Default
   - TransparentFX

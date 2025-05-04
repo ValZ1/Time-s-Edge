@@ -80,8 +80,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 5830694933855508796, guid: 956f574dcb37899429295fd2a0ce648f, type: 3}
-  m_Color: {r: 0, g: 0.015195131, b: 1, a: 1}
+  m_Sprite: {fileID: 7252070982817165424, guid: 408286ca815c16c4d9cacce8cebdefcf, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -129,7 +129,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8333333, y: 0.8333333}
+    oldSize: {x: 1.1666666, y: 0.7083333}
     newSize: {x: 1, y: 0.8828125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -204,6 +204,7 @@ MonoBehaviour:
   CurrentDelay: 0
   PrefabBullet: {fileID: 0}
   ArmCenter: {fileID: 0}
+  _curEnemyHp: 0
 --- !u!95 &6572429592789233538
 Animator:
   serializedVersion: 7
@@ -214,7 +215,7 @@ Animator:
   m_GameObject: {fileID: 8037112917675066367}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 82ce2a2fcc5024f4589132eb10008182, type: 2}
+  m_Controller: {fileID: 9100000, guid: 936d64436d1d6104d92f91c72e171108, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

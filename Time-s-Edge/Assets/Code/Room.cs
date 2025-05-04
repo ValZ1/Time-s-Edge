@@ -76,7 +76,6 @@ public class Room : MonoBehaviour
         if (collision.tag == "Enemy" || collision.tag == "Boss")
         {
             _countEnemy--;
-            Debug.Log("ds");
             if (_countEnemy == 0)
             {
                 _roomActive = false;

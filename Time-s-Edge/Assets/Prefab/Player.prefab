@@ -1018,6 +1018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabBullet: {fileID: 3623083824314509764, guid: 6a075d611cc621b4f8e127ae1c961bf4, type: 3}
   ArmCenter: {fileID: 5348467298617948501}
+  player: {fileID: 0}
 --- !u!1 &3428197659133027010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2054,12 +2055,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 4743272736657779501, guid: e2e92159faa49f8408a9330745a43ed3, type: 3}
+  m_Sprite: {fileID: -5481752831313370702, guid: f054dd1c4deb6c042a38df59a455575a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.22, y: 0.34}
+  m_Size: {x: 0.9166667, y: 1.4166666}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2107,6 +2108,8 @@ MonoBehaviour:
   itemDetectionRange: 2
   SpeedBullet: 10
   DamageBullet: 1
+  count_atack_in_sec: 2
+  max_cooldownTime: 0.5
   Protection: 0
   HealBoost: 0
   _blink_Range: 11.5
@@ -2200,7 +2203,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.9166667, y: 1.4166666}
-    newSize: {x: 0.22, y: 0.34}
+    newSize: {x: 0.9166667, y: 1.4166666}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
