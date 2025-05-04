@@ -276,6 +276,18 @@ public class Player : MonoBehaviour
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
     /// </summary>
     /// <param name="damage"></param>
+    [Header("Damage Flash")]
+    [SerializeField] private float flashDuration = 0.2f;
+    [SerializeField] private Color flashColor = Color.red;
+
+    private Color originalColor;
+    private bool isFlashing = false;
+
+    private void Awake()
+    {
+        this.spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+    }
     public void TakeDamage(int damage, Vector2 pushFrom, float pushPower)
     {
 
@@ -290,13 +302,23 @@ public class Player : MonoBehaviour
 
             audioData.clip = sound[Random.Range(0, 22)];
             audioData.Play();
-
-            CurHp -= (int)(damage * (1 - Protection));
+                CurHp -= (int)(damage * (1 - Protection));
+                if (!isFlashing)
+                {
+                    StartCoroutine(FlashEffect());
+                }
             //    isInvul = true;
         }
-        // }
+       // }
     }
-
+    private System.Collections.IEnumerator FlashEffect()
+    {
+        isFlashing = true;
+        spriteRenderer.color = flashColor;
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.color = originalColor;
+        isFlashing = false;
+    }
     private void invulnerability(float invulTime)
     {
         //TODO анимация
