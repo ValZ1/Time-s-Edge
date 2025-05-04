@@ -12,6 +12,7 @@ TagManager:
   - ReturningBullet
   - vase
   - decoration
+  - RoomTrigger
   layers:
   - Default
   - TransparentFX
