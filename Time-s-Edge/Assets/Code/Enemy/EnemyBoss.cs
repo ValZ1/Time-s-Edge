@@ -11,14 +11,14 @@ public class EnemyBoss : EnemyFather
         RotationSpeed = 2.0f;
         DistanceShoot = 16.0f;
         RegenHp = -200;
-        MaxCooldownTime = 2.9f;
+        MaxCooldownTime = 1.1f;
         _curEnemyHp = 45;
         _cooldownTime = MaxCooldownTime;
         _rb = GetComponent<Rigidbody2D>();
         _playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter").transform;
     }
     float accuracy = 0.7f; 
-    float spreadAngle = 22.0f; 
+    float spreadAngle = 12.0f; 
 
     int atack_num = 0;
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class EnemyBoss : EnemyFather
             Quaternion baseRotation = Quaternion.Euler(0, 0, baseAngle);
             
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 3; i++)
             {
                 float randomSpread = Random.Range(-spreadAngle, spreadAngle) * accuracy;
                 Quaternion spreadRotation = Quaternion.Euler(0, 0, baseAngle + randomSpread);

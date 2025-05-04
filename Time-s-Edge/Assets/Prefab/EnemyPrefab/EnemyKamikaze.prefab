@@ -177,6 +177,9 @@ MonoBehaviour:
   CurrentDelay: 0
   PrefabBullet: {fileID: 0}
   ArmCenter: {fileID: 0}
+  _curEnemyHp: 0
+  MaxHp: 0
+  healthBarPrefab: {fileID: 5316046413323435999, guid: 351baf954590df348a71254a311227b1, type: 3}
 --- !u!50 &6142300245090669113
 Rigidbody2D:
   serializedVersion: 5

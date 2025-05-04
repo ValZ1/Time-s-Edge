@@ -6,14 +6,14 @@ using UnityEngine;
 public class EnemyFather : MonoBehaviour
 {
     public Player player;
-    public float SpeedEnemy ;
+    public float SpeedEnemy;
     public float CurSpeedEnemy;
-    public float RotationSpeed ;
+    public float RotationSpeed;
     public float PushResistance = 0.0f;
 
     //4 kmkz
-    public int DamageKamikaze ;
-    public int RegenHp ; //здоровье восполняемое за убийство с минусом
+    public int DamageKamikaze;
+    public int RegenHp; //здоровье восполняемое за убийство с минусом
 
     //4 tank
     public int DamageTouch;
@@ -75,7 +75,7 @@ public class EnemyFather : MonoBehaviour
         // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
         var pushDirection = (pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
 
-        
+
         _rb.AddForce(pushDirection * pushPower);
         CurSpeedEnemy = 0f;
     }
@@ -84,7 +84,7 @@ public class EnemyFather : MonoBehaviour
     {
         _curEnemyHp -= damage;
 
-        
+
 
         if (_curEnemyHp <= 0)
         {
@@ -97,5 +97,5 @@ public class EnemyFather : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    
+
 }

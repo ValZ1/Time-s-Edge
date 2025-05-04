@@ -17,6 +17,10 @@ TagManager:
   - Shop
   - BossRoom
   - MiniMapCamera
+  - battle
+  - home
+  - shop
+  - boss_room
   layers:
   - Default
   - TransparentFX
