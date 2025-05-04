@@ -161,6 +161,8 @@ MonoBehaviour:
   PrefabBullet: {fileID: 3623083824314509764, guid: 60de52b8ba7aaad4f8ee9c826ebee782, type: 3}
   ArmCenter: {fileID: 0}
   _curEnemyHp: 0
+  MaxHp: 0
+  healthBarPrefab: {fileID: 5316046413323435999, guid: 351baf954590df348a71254a311227b1, type: 3}
   PrefabReturnBullet: {fileID: 3623083824314509764, guid: ec4750fdc7a68b344885efa7a4ede240, type: 3}
 --- !u!50 &-4125122293918997229
 Rigidbody2D:
