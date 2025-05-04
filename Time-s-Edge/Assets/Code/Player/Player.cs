@@ -272,6 +272,20 @@ public class Player : MonoBehaviour
         isDie = true;
 
     }
+    //BLINK EFFECT
+    [Header("Damage Flash")]
+    [SerializeField] private float flashDuration = 0.2f; // Длительность мигания
+    [SerializeField] private Color flashColor = Color.red; // Цвет мигания
+
+    private SpriteRenderer spriteRender;
+    private Color originalColor;
+    private bool isFlashing = false;
+
+    private void Awake()
+    {
+        this.spriteRender = GetComponent<SpriteRenderer>();
+        originalColor = spriteRender.color;
+    }
     /// <summary>
     /// наносит игроку урон в размере damage. Леченим считать отрицательный урон.
     /// </summary>
@@ -292,11 +306,30 @@ public class Player : MonoBehaviour
             audioData.Play();
 
             CurHp -= (int)(damage * (1 - Protection));
+            if (!isFlashing)
+            {
+                StartCoroutine(FlashEffect());
+            }
             //    isInvul = true;
         }
         // }
     }
+    //BLINK EFFECT
+    private System.Collections.IEnumerator FlashEffect()
+    {
+        isFlashing = true;
 
+        // Меняем цвет на красный
+        spriteRender.color = flashColor;
+
+        // Ждем указанное время
+        yield return new WaitForSeconds(flashDuration);
+
+        // Возвращаем исходный цвет
+        spriteRender.color = originalColor;
+
+        isFlashing = false;
+    }
     private void invulnerability(float invulTime)
     {
         //TODO анимация
