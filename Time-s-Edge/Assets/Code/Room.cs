@@ -9,52 +9,39 @@ public class Room : MonoBehaviour
     public List<EnemySpawnPoint> EnemySpawnPoints;
     public EnemySpawnPoint BossSpawnPoint;
     public EnemyBoss prefabBoss;
-
+    public GameObject parentGameObject;
 
     private int Waves;
     private int _index;
-    private int _countEnemy = 0;
+    public int _countEnemy = 0;
     public bool is_bossroom = false;
-    public int cleared_rooms = 0;
 
     public bool isCurrentRoom = false;
     public bool _roomActive;
-    private bool cleared = false;
     void Start()
     {
-        if (!is_bossroom)
-        {
-            _roomActive = true;
-            Waves = 1;
-            OpenDoors();
-        }
+        parentGameObject = transform.parent.gameObject;
+        _roomActive = true;
+        Waves = UnityEngine.Random.Range(2, 4);
+        OpenDoors();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (cleared_rooms == 7)
-        {
-            _roomActive = true;
-            Waves = UnityEngine.Random.Range(2, 4);
-            OpenDoors();
-            cleared_rooms++;
-        }
     }
     private void OnEnemySpawnPoint()
     {
+        foreach (EnemySpawnPoint enemySpawnPoint in EnemySpawnPoints)
+        {
+            _index = UnityEngine.Random.Range(0, 5);
+            enemySpawnPoint.SpawnEnemy(_index);
+            _countEnemy++;
+        }
         if (is_bossroom)
         {
+            _countEnemy++;
             Instantiate(prefabBoss, BossSpawnPoint.transform.position, Quaternion.identity);
-        }
-        else
-        {
-            foreach (EnemySpawnPoint enemySpawnPoint in EnemySpawnPoints)
-            {
-                _index = UnityEngine.Random.Range(0, 5);
-                enemySpawnPoint.SpawnEnemy(_index);
-                _countEnemy++;
-            }
         }
     }
     private void CloseDoors()
@@ -69,29 +56,6 @@ public class Room : MonoBehaviour
         foreach (Door door in Doors)
         {
             door.Open();
-        }
-        if (cleared)
-        {
-            GameObject bossRoom = GameObject.Find("RoomTriggerBosS");
-            if (bossRoom != null)
-            {
-                // Достаём ваш скрипт Room с этого объекта
-                Room roomScript = bossRoom.GetComponent<Room>();
-                if (roomScript != null)
-                {
-                    // Увеличиваем счётчик
-                    roomScript.cleared_rooms++;
-                }
-                else
-                {
-                    Debug.LogError("На объекте 'RoomTriggerBosS' нет компонента Room!");
-                }
-            }
-            else
-            {
-                Debug.LogError("Не найден объект 'RoomTriggerBosS' в сцене!");
-            }
-            Destroy(gameObject);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -108,18 +72,25 @@ public class Room : MonoBehaviour
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
+{
+    if (collision.tag == "Enemy" || collision.tag == "Boss")
     {
-        if (collision.tag == "Enemy")
+        _countEnemy--;
+            Debug.Log("ds");
+        if (_countEnemy == 0)
         {
-            _countEnemy--;
-            if (_countEnemy == 0)
+            _roomActive = false;
+            OpenDoors();
+
+            MiniMapManager miniMapManager = FindObjectOfType<MiniMapManager>();
+            if (miniMapManager != null)
             {
-                _roomActive = false;
-                //Тут можно реализовать волны
-                cleared = true;
-                OpenDoors();
+                miniMapManager.MarkRoomAsCleared(parentGameObject);
             }
+
+                parentGameObject.tag = "Passage";
         }
-        else if (collision.tag == "Player") return;
     }
+    else if (collision.tag == "Player") return;
+}
 }
