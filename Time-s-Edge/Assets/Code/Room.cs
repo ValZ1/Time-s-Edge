@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 
 public class Room : MonoBehaviour
-{ 
+{
     public List<Door> Doors;
     public List<EnemySpawnPoint> EnemySpawnPoints;
     public EnemySpawnPoint BossSpawnPoint;
@@ -72,25 +72,25 @@ public class Room : MonoBehaviour
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
-{
-    if (collision.tag == "Enemy" || collision.tag == "Boss")
     {
-        _countEnemy--;
-            Debug.Log("ds");
-        if (_countEnemy == 0)
+        if (collision.tag == "Enemy" || collision.tag == "Boss")
         {
-            _roomActive = false;
-            OpenDoors();
-
-            MiniMapManager miniMapManager = FindObjectOfType<MiniMapManager>();
-            if (miniMapManager != null)
+            _countEnemy--;
+            Debug.Log("ds");
+            if (_countEnemy == 0)
             {
-                miniMapManager.MarkRoomAsCleared(parentGameObject);
-            }
+                _roomActive = false;
+                OpenDoors();
+
+                MiniMapManager miniMapManager = FindObjectOfType<MiniMapManager>();
+                if (miniMapManager != null)
+                {
+                    miniMapManager.MarkRoomAsCleared(parentGameObject);
+                }
 
                 parentGameObject.tag = "Passage";
+            }
         }
+        else if (collision.tag == "Player") return;
     }
-    else if (collision.tag == "Player") return;
-}
 }

@@ -27,10 +27,14 @@ public class Bullet : MonoBehaviour
         if (other.TryGetComponent(out EnemyFather enemy))
         {
             enemy.TakeDamage(player.get_Damage());
-            enemy.PushAway(transform.position,-0.03f);
+            enemy.PushAway(transform.position, -0.03f);
             Destroy(gameObject);
         }
         else if (other.tag == "Wall")
+        {
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("decoration"))
         {
             Destroy(gameObject);
         }

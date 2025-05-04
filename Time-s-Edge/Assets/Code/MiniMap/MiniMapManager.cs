@@ -8,6 +8,7 @@ public class MiniMapManager : MonoBehaviour
     public Camera miniMapCamera;
     public RawImage miniMapRawImage;
 
+    public GameObject startIconPrefab;
     public GameObject roomIconPrefab;
     public GameObject clearedRoomIconPrefab;
     public GameObject passageIconPrefab;
@@ -16,6 +17,8 @@ public class MiniMapManager : MonoBehaviour
     public GameObject playerIconPrefab;
 
     public Transform playerTransform;
+    
+    public string startTag = "start_room";
     public string roomTag = "Room";
     public string passageTag = "Passage";
     public string shopTag = "Shop";
@@ -41,10 +44,16 @@ public class MiniMapManager : MonoBehaviour
 
     void GenerateMiniMap()
     {
+        GameObject[] start = GameObject.FindGameObjectsWithTag(startTag);
         GameObject[] rooms = GameObject.FindGameObjectsWithTag(roomTag);
         GameObject[] passages = GameObject.FindGameObjectsWithTag(passageTag);
         GameObject[] shops = GameObject.FindGameObjectsWithTag(shopTag);
         GameObject[] bossRooms = GameObject.FindGameObjectsWithTag(bossRoomTag);
+
+        foreach (GameObject _start in start)
+        {
+            CreateIcon(_start, startIconPrefab, roomIcons);
+        }
 
         foreach (GameObject room in rooms)
         {

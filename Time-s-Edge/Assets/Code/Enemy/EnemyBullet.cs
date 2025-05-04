@@ -24,5 +24,9 @@ public class EnemyBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (other.tag == "decoration")
+        {
+            Destroy(gameObject);
+        }
     }
 }
