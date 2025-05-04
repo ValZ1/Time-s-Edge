@@ -80889,7 +80889,7 @@ GameObject:
   m_Layer: 0
   m_Name: "\u043D\u0430\u0447\u0430\u043B\u044C\u043D\u0430\u044F \u043A\u043E\u043C\u043D\u0430\u0442\u0430
     (1)"
-  m_TagString: Room
+  m_TagString: start_room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -46,13 +46,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   miniMapCamera: {fileID: 0}
   miniMapRawImage: {fileID: 0}
-  roomIconPrefab: {fileID: 2018299111926762236, guid: 9a0935c0060a2c143a782d5109386d23, type: 3}
-  clearedRoomIconPrefab: {fileID: 1312209529526373699, guid: f7168ce958af7ce49ba679c3cbf60eec, type: 3}
+  startIconPrefab: {fileID: 7135458728646849114, guid: 4d6a9a15d82f4034bb8c9705ce78d5fa, type: 3}
+  roomIconPrefab: {fileID: 7373849519370784162, guid: 3c175614fc4e0b24da18fa2b097798ae, type: 3}
+  clearedRoomIconPrefab: {fileID: 9041934178171613913, guid: f58e65e29eba4484c966cbb202867958, type: 3}
   passageIconPrefab: {fileID: 4458378941605411754, guid: 09bad5e07d0a5a64a8ff54837b1a50a8, type: 3}
-  shopIconPrefab: {fileID: 5587841100468557412, guid: 3177f26a82354b148b7af66a472eb6b2, type: 3}
-  bossRoomIconPrefab: {fileID: 7058358676097461449, guid: 51683b7a1226abf45939aaaf705a867e, type: 3}
+  shopIconPrefab: {fileID: 4271881998533359984, guid: 27e24be35248f85448d84b2878060fdb, type: 3}
+  bossRoomIconPrefab: {fileID: 338109800704185053, guid: c9eac4671417dde4f83ee6ad0593d0e7, type: 3}
   playerIconPrefab: {fileID: 5975635221837457637, guid: 09303e07c5cc60742bb081899c5c4750, type: 3}
   playerTransform: {fileID: 0}
+  startTag: start_room
   roomTag: Room
   passageTag: Passage
   shopTag: Shop

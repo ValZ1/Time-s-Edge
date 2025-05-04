@@ -33,6 +33,9 @@ public class EnemyShooter : EnemyFather
         // ќтключаем движени€, чтобы при столкновении со своими сородичами не летал по всей карте,
         // а также позвол€ет ему рассталкивать других стрелков, чтоб достичь игрока
         _rb.linearVelocity = Vector2.zero;
+        Vector3 direction = _playerCenter.position - transform.position;
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
         var distanceToPlayer = Vector2.Distance(_playerCenter.position, transform.position);
         if (distanceToPlayer > DistanceShoot && _cooldownChaseTime >= MaxCooldownChaseTime)
         {
@@ -42,10 +45,6 @@ public class EnemyShooter : EnemyFather
         else if (distanceToPlayer <= DistanceShoot && _cooldownTime >= MaxCooldownTime)
         {
             animator.SetBool("isEnemyMoving", false);
-            //¬ будущем требует доработки, попытаюсь реализовать стрельбу в сторону движени€ игрока
-            Vector3 direction = _playerCenter.position - transform.position;
-            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
             ArmCenter.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
             Instantiate(PrefabBullet, transform.position, ArmCenter.rotation);
             _cooldownTime = 0.0f;

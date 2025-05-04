@@ -59,10 +59,12 @@ public class EnemyFather : MonoBehaviour
     protected void CheckFlipX(float angle)
     {
         bool shouldFlip = angle < 90f && angle > -90f;
-        if (spriteRenderer.flipX != shouldFlip)
+        if (shouldFlip)
         {
-            spriteRenderer.flipX = shouldFlip;
+            gameObject.transform.rotation = new Quaternion(0,180,0,0);
         }
+        else gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+
     }
     public void PushAway(Vector2 pushFrom, float pushPower)
     {
