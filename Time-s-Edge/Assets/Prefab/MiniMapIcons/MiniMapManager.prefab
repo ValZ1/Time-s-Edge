@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8613463695338114755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7088986833439233820}
+  - component: {fileID: 8537171768647881831}
+  m_Layer: 0
+  m_Name: MiniMapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7088986833439233820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8613463695338114755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8537171768647881831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8613463695338114755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6bf8effce2094342bbe45bc6fa9e183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniMapCamera: {fileID: 0}
+  miniMapRawImage: {fileID: 0}
+  roomIconPrefab: {fileID: 2018299111926762236, guid: 9a0935c0060a2c143a782d5109386d23, type: 3}
+  clearedRoomIconPrefab: {fileID: 1312209529526373699, guid: f7168ce958af7ce49ba679c3cbf60eec, type: 3}
+  passageIconPrefab: {fileID: 4458378941605411754, guid: 09bad5e07d0a5a64a8ff54837b1a50a8, type: 3}
+  shopIconPrefab: {fileID: 5587841100468557412, guid: 3177f26a82354b148b7af66a472eb6b2, type: 3}
+  bossRoomIconPrefab: {fileID: 7058358676097461449, guid: 51683b7a1226abf45939aaaf705a867e, type: 3}
+  playerIconPrefab: {fileID: 5975635221837457637, guid: 09303e07c5cc60742bb081899c5c4750, type: 3}
+  playerTransform: {fileID: 0}
+  roomTag: Room
+  passageTag: Passage
+  shopTag: Shop
+  bossRoomTag: BossRoom

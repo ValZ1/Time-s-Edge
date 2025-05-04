@@ -9,17 +9,18 @@ public class Room : MonoBehaviour
     public List<EnemySpawnPoint> EnemySpawnPoints;
     public EnemySpawnPoint BossSpawnPoint;
     public EnemyBoss prefabBoss;
-
+    public GameObject parentGameObject;
 
     private int Waves;
     private int _index;
-    private int _countEnemy = 0;
+    public int _countEnemy = 0;
     public bool is_bossroom = false;
 
     public bool isCurrentRoom = false;
     public bool _roomActive;
     void Start()
     {
+        parentGameObject = transform.parent.gameObject;
         _roomActive = true;
         Waves = UnityEngine.Random.Range(2, 4);
         OpenDoors();
@@ -39,6 +40,7 @@ public class Room : MonoBehaviour
         }
         if (is_bossroom)
         {
+            _countEnemy++;
             Instantiate(prefabBoss, BossSpawnPoint.transform.position, Quaternion.identity);
         }
     }
@@ -70,17 +72,25 @@ public class Room : MonoBehaviour
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
+{
+    if (collision.tag == "Enemy" || collision.tag == "Boss")
     {
-        if (collision.tag == "Enemy")
+        _countEnemy--;
+            Debug.Log("ds");
+        if (_countEnemy == 0)
         {
-            _countEnemy--;
-            if (_countEnemy == 0)
+            _roomActive = false;
+            OpenDoors();
+
+            MiniMapManager miniMapManager = FindObjectOfType<MiniMapManager>();
+            if (miniMapManager != null)
             {
-                _roomActive = false;
-                //Тут можно реализовать волны
-                OpenDoors();
+                miniMapManager.MarkRoomAsCleared(parentGameObject);
             }
+
+                parentGameObject.tag = "Passage";
         }
-        else if (collision.tag == "Player") return;
     }
+    else if (collision.tag == "Player") return;
+}
 }
