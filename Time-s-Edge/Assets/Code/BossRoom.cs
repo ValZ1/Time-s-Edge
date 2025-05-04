@@ -3,39 +3,39 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-public class BossRoom : MonoBehaviour
+public class BossRoom : Room
 {
-    public List<Door> Doors;
-    public List<EnemySpawnPoint> EnemySpawnPoints;
+
     public List<GameObject> RoomOpen;
 
     private bool IsRoomOpen = false;
-    private float _cooldownTime = 2.0f;
+    private int Waves;
     private int _index;
-    private int _countEnemy = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        parentGameObject = transform.parent.gameObject;
+        _roomActive = true;
         CloseDoors();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!IsRoomOpen) {
+        if (!IsRoomOpen)
+        {
             if (IsAllRoomInactive())
             {
                 OpenDoors();
                 IsRoomOpen = true;
             }
         }
-        _cooldownTime += Time.deltaTime;
     }
     bool IsAllRoomInactive()
     {
         foreach (GameObject room in RoomOpen)
         {
-            if (room != null && room.activeInHierarchy)
+            if (room != null && room.tag == "Room")
             {
                 return false;
             }
@@ -46,8 +46,14 @@ public class BossRoom : MonoBehaviour
     {
         foreach (EnemySpawnPoint enemySpawnPoint in EnemySpawnPoints)
         {
-            enemySpawnPoint.SpawnEnemy(0);
+            _index = UnityEngine.Random.Range(0, 5);
+            enemySpawnPoint.SpawnEnemy(_index);
             _countEnemy++;
+        }
+        if (is_bossroom)
+        {
+            _countEnemy++;
+            Instantiate(prefabBoss, BossSpawnPoint.transform.position, Quaternion.identity);
         }
     }
     private void CloseDoors()
@@ -66,23 +72,37 @@ public class BossRoom : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Player player))
+        if (_roomActive)
         {
-            CloseDoors();
-            OnEnemySpawnPoint();
+            if (collision.TryGetComponent(out Player player))
+            {
+                CloseDoors();
+                OnEnemySpawnPoint();
+                GameController gameController = FindAnyObjectByType<GameController>();
+                if (gameController != null) gameController.SetCurrentRoom(this);
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Enemy" || collision.tag == "Boss")
         {
             _countEnemy--;
-            if (_cooldownTime >=2.0f)
+            Debug.Log("ds");
+            if (_countEnemy == 0)
             {
-                _cooldownTime = 0f;
-                OnEnemySpawnPoint();
+                _roomActive = false;
+                OpenDoors();
+
+                MiniMapManager miniMapManager = FindObjectOfType<MiniMapManager>();
+                if (miniMapManager != null)
+                {
+                    miniMapManager.MarkRoomAsCleared(parentGameObject);
+                }
+
+                parentGameObject.tag = "Passage";
             }
         }
-        else if (collision.tag == "Player") gameObject.SetActive(false);
+        else if (collision.tag == "Player") return;
     }
 }

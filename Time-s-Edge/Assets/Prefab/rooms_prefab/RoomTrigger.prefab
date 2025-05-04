@@ -239,6 +239,13 @@ MonoBehaviour:
   - {fileID: 2501973055686395199}
   - {fileID: 6138310758948380453}
   - {fileID: 8084729145976293499}
+  BossSpawnPoint: {fileID: 0}
+  prefabBoss: {fileID: 0}
+  parentGameObject: {fileID: 0}
+  _countEnemy: 0
+  is_bossroom: 0
+  isCurrentRoom: 0
+  _roomActive: 0
 --- !u!1 &3668898968104012991
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     public int StartHp = 60;
     public float SpeedPlayer = 0.1f;
-    private int CurHp;  
+    private int CurHp;
     private Vector2 _moveVector;
 
     public int _timeBurner = -1; //паблик потому что лень методы делать)
@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
     //dmg
     public float SpeedBullet = 10.0f;
     public int DamageBullet = 1;
+    public float count_atack_in_sec = 2.0f;
+    public float max_cooldownTime = 0.5f;
     //защита
     [SerializeField] private double Protection = 0.0;
 
@@ -72,7 +74,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
+
         //Передвижение игрока
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
@@ -84,8 +86,8 @@ public class Player : MonoBehaviour
         _rb.MovePosition(_rb.position + _moveVector * SpeedPlayer);
 
 
-        if (_you_Have_Blink == 1) 
-        { 
+        if (_you_Have_Blink == 1)
+        {
             if (Input.GetKeyDown(KeyCode.Z) && _cur_Cooldown_Blink >= _cooldown_Blink)
             {
                 _cur_Cooldown_Blink = 0;
@@ -104,7 +106,7 @@ public class Player : MonoBehaviour
             _cur_Cooldown_Blink += Time.deltaTime;
         }
         Burner_by_time();
-        
+
         //if (isInvul && invultime < 1f)
         //{
         //    invultime += Time.deltaTime;
@@ -122,7 +124,7 @@ public class Player : MonoBehaviour
                 timer = 0;
             }
             else
-                {
+            {
                 timer += 1;
             }
             delta *= 1.01f;
@@ -290,17 +292,16 @@ public class Player : MonoBehaviour
     {
 
 
-       // if (!isInvul) { 
-            if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
-                Die();
-            else 
-            {
-                pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
-                is_push = true;
+        // if (!isInvul) { 
+        if (CurHp - (int)(damage * (1 - Protection)) <= 0) //ситуация, в которой на 0.1 сек у персонажа отрицательное хп теперь не проблема
+            Die();
+        else
+        {
+            pushDirection = -(pushFrom - new Vector2(transform.position.x, transform.position.y)).normalized;
+            is_push = true;
 
-                audioData.clip = sound[Random.Range(0,22)];
-                audioData.Play();
-
+            audioData.clip = sound[Random.Range(0, 22)];
+            audioData.Play();
                 CurHp -= (int)(damage * (1 - Protection));
                 if (!isFlashing)
                 {
@@ -323,7 +324,7 @@ public class Player : MonoBehaviour
         //TODO анимация
 
 
-    }    
+    }
 
     public void Heal(int damage)
     {
@@ -337,17 +338,20 @@ public class Player : MonoBehaviour
     /// используется при покупке предметов
     /// </summary>
     /// <param name="price"></param>
-    public void Buy(int price){CurHp -= price;} 
+    public void Buy(int price) { CurHp -= price; }
     //Getters
     public int get_CurHp() => CurHp;
     public int get_Damage() => DamageBullet;
     public float get_cooldown_blink() => _cooldown_Blink;
     //Setters
-    public void damage_Up(int damage){ DamageBullet += damage;}
-    public void protection_Up(double protection) { Protection += protection ; } // * (1 - Protection)
+    public void damage_Up(int damage) { DamageBullet += damage; }
+    public void protection_Up(double protection) { Protection += protection; } // * (1 - Protection)
     public void Heal_Up(double healBoost) { HealBoost += healBoost; }
 
-    public void blink_Up() { _you_Have_Blink = 1;}
-    public void blink_range_Up(float range) {_blink_Range += range;}
+    public void blink_Up() { _you_Have_Blink = 1; }
+    public void blink_range_Up(float range) { _blink_Range += range; }
     public void blink_cooldown_reduction(float reduction) { _cooldown_Blink -= _cooldown_Blink * reduction; }
+
+    public void _cooldownTime_redux(float red) { count_atack_in_sec += red; max_cooldownTime = 1 / count_atack_in_sec; }
+
 }

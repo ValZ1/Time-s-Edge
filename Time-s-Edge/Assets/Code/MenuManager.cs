@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,13 +8,18 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _loseMenu;
     [SerializeField] private Player _player;
     [SerializeField] private GameObject _playerArm;
+
+    [SerializeField] private GameObject _miniMap;
+
     private bool _isMenuActive = false;
+    private bool _isMiniMenuActive;
     void Start()
     {
         Time.timeScale = 1f;
+        _isMiniMenuActive = true;
         _menu.SetActive(_isMenuActive);
         _loseMenu.SetActive(false);
-
+        _miniMap.SetActive(_isMiniMenuActive);
     }
 
     void Update()
@@ -27,6 +33,7 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
+            _miniMap.SetActive(false);
             LoseMenuControl();
             if (Input.GetKeyUp(KeyCode.Escape))
             {
@@ -36,6 +43,8 @@ public class MenuManager : MonoBehaviour
     }
     private void MenuControl()
     {
+        _isMiniMenuActive = !_isMiniMenuActive;
+        _miniMap.SetActive(_isMiniMenuActive);
         _isMenuActive = !_isMenuActive;
         _menu.SetActive(_isMenuActive);
         Time.timeScale = _isMenuActive ? 0f : 1f;

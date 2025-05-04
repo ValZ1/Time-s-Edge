@@ -37,7 +37,7 @@ public class EnemyKamikaze : EnemyFather
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
         CheckFlipX(angle);
         //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
-        animator.SetBool("isEnemyMoving",true);
+        animator.SetBool("isEnemyMoving", true);
         //}
     }
     private void OnCollisionEnter2D(Collision2D collision)
